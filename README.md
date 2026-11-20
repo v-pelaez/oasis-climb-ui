@@ -1,48 +1,53 @@
-# oasis_climb_vue
+# OasisClimb — Frontend Web Application
 
-This template should help get you started developing with Vue 3 in Vite.
+Responsive single-page application designed for **OasisClimb**, a fictional climbing community brand built as a comprehensive frontend showcase.
 
-## Recommended IDE Setup
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Live Demo: **[v-pelaez.github.io/oasis-climb-ui](https://v-pelaez.github.io/oasis-climb-ui/)**
 
-## Recommended Browser Setup
+![OasisClimb — Desktop Preview](./docs/preview.png)
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Overview
 
-## Type Support for `.vue` Imports in TS
+Originally developed as a static Bootstrap interface, this project was migrated to a modular **Vue 3 + TypeScript** SPA to apply component-based architecture, client-side routing, and automated code quality tooling while preserving a cohesive visual identity.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Key Features
 
-## Customize configuration
+- **SPA architecture & routing:** Multi-view client-side navigation structured with Vue Router 4.
+- **Rich media integration:** Interactive video carousel and embedded video sections.
+- **Interactive UI & forms:** Client-side form validation, tooltips, and reusable Bootstrap 5 / CoreUI Vue components.
+- **Data presentation:** Ranking tables with client-side pagination backed by static mock datasets.
+- **Custom visual effects:** Canvas-style animated background and animated SVG elements combined with custom Sass styling.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Tech Stack
 
-## Project Setup
+- **Framework & Build:** Vue 3 (`^3.5.26`) · Vue Router 4 (`^4.6.4`) · Vite 7 (`^7.3.1`)
+- **Language & Type Checking:** TypeScript (`~5.9.3`) · `vue-tsc`
+- **UI & Styling:** Bootstrap 5 · CoreUI Vue (`@coreui/vue`, `@coreui/icons-vue`) · Sass
+- **Code Quality:** ESLint 9 · Prettier 3
 
-```sh
+## Local Development
+
+### Prerequisites
+
+- Node.js `^20.19.0` or `>=22.12.0`
+- npm
+
+### Setup
+
+```bash
+git clone [https://github.com/v-pelaez/](https://github.com/v-pelaez/)<nuevo-nombre-del-repo>.git
+cd <nuevo-nombre-del-repo>
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Scripts
 
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Start the Vite development server with HMR |
+| `npm run type-check` | Run TypeScript static analysis with `vue-tsc` |
+| `npm run build` | Type-check and build the application for production |
+| `npm run preview` | Locally preview the production build |
+| `npm run lint` | Lint and auto-fix files with ESLint |
+| `npm run format` | Format source files in `src/` with Prettier |
