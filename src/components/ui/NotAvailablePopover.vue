@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PopoverArrow, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
+import { useI18n } from 'vue-i18n'
 
 /**
  * Wraps a trigger (default slot, rendered as-is) with a popover that says the
@@ -7,12 +8,14 @@ import { PopoverArrow, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigge
  */
 withDefaults(
   defineProps<{
-    /** Subject of the sentence, e.g. «La búsqueda». */
-    subject: string
+    /** Translated sentence, e.g. `t('notAvailable.search')`. */
+    message: string
     side?: 'top' | 'right' | 'bottom' | 'left'
   }>(),
   { side: 'bottom' },
 )
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -22,8 +25,8 @@ withDefaults(
     </PopoverTrigger>
     <PopoverPortal>
       <PopoverContent class="not-available" :side="side" :side-offset="8" :collision-padding="16">
-        <p class="not-available-title">Acción no disponible</p>
-        <p class="not-available-body">{{ subject }} no está disponible en este prototipo.</p>
+        <p class="not-available-title">{{ t('notAvailable.title') }}</p>
+        <p class="not-available-body">{{ message }}</p>
         <PopoverArrow class="not-available-arrow" :width="12" :height="6" />
       </PopoverContent>
     </PopoverPortal>

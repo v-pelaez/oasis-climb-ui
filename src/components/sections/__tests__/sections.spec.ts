@@ -7,6 +7,9 @@ import RankingSection from '../RankingSection.vue'
 import { news } from '@/data/news'
 import { rankings } from '@/data/rankings'
 import type { RankingId } from '@/types/ranking'
+import es from '@/locales/es.json'
+import en from '@/locales/en.json'
+import { testI18n } from '@/__tests__/setup'
 
 // jsdom has no ResizeObserver; Reka UI's floating content measures itself with it.
 class ResizeObserverStub {
@@ -30,7 +33,7 @@ describe('NewsSection', () => {
     expect(wrapper.element.tagName).toBe('SECTION')
     expect(wrapper.attributes('id')).toBe('novedades')
     expect(wrapper.findAll('.news-card-title').map((el) => el.text())).toEqual(
-      news.map((item) => item.title),
+      news.map((item) => es.news.items[item.id as keyof typeof es.news.items].title),
     )
     expect(wrapper.findAll('article.news-card')).toHaveLength(news.length)
     expect(wrapper.find('#ranking').exists()).toBe(false)
@@ -116,6 +119,43 @@ describe('RankingSection', () => {
     await tab(wrapper, 1).trigger('mousedown', { button: 0 })
     await flushPromises()
     expect(active.value).toBe('velocidad')
+    wrapper.unmount()
+  })
+})
+
+describe('Formatting follows the active language', () => {
+  it('news dates, countries and points', async () => {
+    const Page = defineComponent({ render: () => [h(NewsSection), h(RankingSection)] })
+    const wrapper = mount(Page, { attachTo: document.body })
+    const firstRow = () => document.querySelector('#ranking-dificultad-1')!.textContent!
+    const firstDate = () => wrapper.find('.news-card-footer').text()
+
+    expect(firstDate()).toBe('Publicado hace 1 hora')
+    expect(firstRow()).toContain('España')
+    expect(firstRow()).toContain('4485')
+    expect(wrapper.find('.news-card-title').text()).toBe(es.news.items.trad.title)
+
+    testI18n.global.locale.value = 'en'
+    await flushPromises()
+
+    expect(firstDate()).toBe('Published 1 hour ago')
+    expect(firstRow()).toContain('Spain')
+    expect(firstRow()).toContain('4,485')
+    expect(wrapper.find('.news-card-title').text()).toBe(en.news.items.trad.title)
+    expect(wrapper.find('[role="tab"]').text()).toBe(en.ranking.tabs.dificultad)
+    expect(wrapper.findAll('thead th').map((th) => th.text())).toContain(
+      en.ranking.metric.dificultad,
+    )
+    wrapper.unmount()
+  })
+
+  it('ranking flags are inline SVG, hidden from assistive technology', () => {
+    const wrapper = mount(RankingSection, { attachTo: document.body })
+    const flag = wrapper.get('#ranking-dificultad-1 svg.country-flag')
+    expect(flag.attributes('aria-hidden')).toBe('true')
+    expect(flag.attributes('data-country')).toBe('ES')
+    // No emoji flags (regional indicator symbols) left in the table
+    expect(wrapper.text()).not.toMatch(/\p{Regional_Indicator}/u)
     wrapper.unmount()
   })
 })

@@ -5,15 +5,16 @@ export type RankingId = 'dificultad' | 'velocidad'
 
 export interface RankingRow {
   rank: number
+  /** Proper name, not translated. */
   name: string
   country: CountryCode
+  /** Grade or time as written by the sport (`9a+`, `5.15 s`). */
   metric: string
   points: number
 }
 
+/** Title and metric header live at `ranking.tabs.<id>` / `ranking.metric.<id>`. */
 export interface Ranking {
   id: RankingId
-  title: string
-  headers: string[]
   data: RankingRow[]
 }

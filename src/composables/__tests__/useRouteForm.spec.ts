@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { useRouteForm, validateRouteForm } from '../useRouteForm'
-import { emptyRouteForm, routeFormMessages } from '@/data/routeForm'
+import { routeFormErrorKeys, useRouteForm, validateRouteForm } from '../useRouteForm'
+import { emptyRouteForm } from '@/data/routeForm'
+import es from '@/locales/es.json'
+import en from '@/locales/en.json'
 import type { RouteFormData } from '@/types/routeForm'
 
 const valid: RouteFormData = {
@@ -26,19 +28,30 @@ describe('validateRouteForm', () => {
   it('requires every field except the GPS link', () => {
     const errors = validateRouteForm({ ...emptyRouteForm })
     expect(Object.keys(errors)).not.toContain('gpsLink')
-    expect(errors.routeName).toBe(routeFormMessages.required.routeName)
-    expect(errors.terms).toBe(routeFormMessages.required.terms)
+    expect(errors.routeName).toBe('routeForm.errors.required.routeName')
+    expect(errors.terms).toBe(routeFormErrorKeys.required('terms'))
     expect(validateRouteForm({ ...valid, routeName: '   ' }).routeName).toBeDefined()
   })
 
   it('checks numbers are not negative and the link is a URL', () => {
     expect(validateRouteForm({ ...valid, duration: -1 }).duration).toBe(
-      routeFormMessages.notNegativeNumber,
+      routeFormErrorKeys.notNegativeNumber,
     )
     expect(validateRouteForm({ ...valid, gpsLink: 'wikiloc' }).gpsLink).toBe(
-      routeFormMessages.invalidUrl,
+      routeFormErrorKeys.invalidUrl,
     )
     expect(validateRouteForm({ ...valid, gpsLink: 'https://wikiloc.com/x' })).toEqual({})
+  })
+})
+
+describe('error keys', () => {
+  it('exist in both locale files for every required field', () => {
+    const errors = validateRouteForm({ ...emptyRouteForm })
+    for (const key of Object.values(errors)) {
+      const [, , , field] = key!.split('.')
+      expect(es.routeForm.errors.required).toHaveProperty(field!)
+      expect(en.routeForm.errors.required).toHaveProperty(field!)
+    }
   })
 })
 

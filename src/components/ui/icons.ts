@@ -21,6 +21,15 @@ export const icons = {
   'arrow-up': { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M12 19V5', 'm5 12 7-7 7 7'] },
   pause: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M9 5v14', 'M15 5v14'] },
   play: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M7 5v14l12-7Z'] },
+  globe: {
+    viewBox: '0 0 24 24',
+    kind: 'stroke',
+    paths: [
+      'M12 3a9 9 0 1 0 0 18 9 9 0 1 0 0-18Z',
+      'M3 12h18',
+      'M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z',
+    ],
+  },
   instagram: {
     viewBox: '0 0 32 32',
     kind: 'fill',

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import NotAvailablePopover from '@/components/ui/NotAvailablePopover.vue'
 import { navLinks, socialLinks } from '@/data/site'
 
+const { t } = useI18n()
 const email = ref('')
 </script>
 
@@ -15,13 +17,13 @@ const email = ref('')
           <h2 id="footer-menu-title" class="site-footer-title">Oasis Climb</h2>
           <ul class="site-footer-list">
             <li v-for="item in navLinks" :key="item.href">
-              <a :href="item.href" class="site-footer-link">{{ item.text }}</a>
+              <a :href="item.href" class="site-footer-link">{{ t(`nav.${item.key}`) }}</a>
             </li>
           </ul>
         </section>
 
         <section class="site-footer-col" aria-labelledby="footer-social-title">
-          <h2 id="footer-social-title" class="site-footer-title">Síguenos</h2>
+          <h2 id="footer-social-title" class="site-footer-title">{{ t('footer.follow') }}</h2>
           <ul class="site-footer-list site-footer-social">
             <li v-for="social in socialLinks" :key="social.name">
               <a
@@ -34,7 +36,11 @@ const email = ref('')
                 <AppIcon :name="social.icon" size="1.25em" />
                 {{ social.name }}
               </a>
-              <NotAvailablePopover v-else :subject="`El perfil de ${social.name}`" side="right">
+              <NotAvailablePopover
+                v-else
+                :message="t('notAvailable.social', { name: social.name })"
+                side="right"
+              >
                 <button type="button" class="site-footer-link site-footer-social-link">
                   <AppIcon :name="social.icon" size="1.25em" />
                   {{ social.name }}
@@ -46,20 +52,20 @@ const email = ref('')
 
         <section class="site-footer-col" aria-labelledby="footer-newsletter-title">
           <h2 id="footer-newsletter-title" class="site-footer-title">
-            Suscríbete a nuestro boletín de Novedades
+            {{ t('footer.newsletterTitle') }}
           </h2>
           <form class="site-footer-newsletter" @submit.prevent>
-            <label for="footer-email" class="visually-hidden">Correo electrónico</label>
+            <label for="footer-email" class="visually-hidden">{{ t('footer.emailLabel') }}</label>
             <input
               id="footer-email"
               v-model="email"
               class="site-footer-input"
               type="email"
               autocomplete="email"
-              placeholder="correo@electronico.com"
+              :placeholder="t('footer.emailPlaceholder')"
             />
-            <NotAvailablePopover subject="La suscripción" side="top">
-              <button type="button" class="site-footer-btn">Suscríbete</button>
+            <NotAvailablePopover :message="t('notAvailable.subscription')" side="top">
+              <button type="button" class="site-footer-btn">{{ t('footer.subscribe') }}</button>
             </NotAvailablePopover>
           </form>
         </section>
@@ -83,16 +89,8 @@ const email = ref('')
     </div>
 
     <div class="site-footer-legal">
-      <h2 class="site-footer-title">Información legal</h2>
-      <p class="site-footer-legal-text">
-        Este trabajo ha sido elaborado por V. Peláez con fines académicos. La autoría de todo el
-        contenido corresponde exclusivamente a V. Peláez. El trabajo no tiene carácter comercial ni
-        busca obtener beneficio económico alguno. Las imágenes utilizadas provienen de fuentes como
-        Flaticon y Freepik, y se emplean respetando sus licencias de uso gratuito y atribución.Queda
-        prohibida la reproducción o distribución del contenido para fines comerciales sin el
-        consentimiento explícito del autor. Se agradece la adecuada atribución de las imágenes
-        conforme a las condiciones de las plataformas.
-      </p>
+      <h2 class="site-footer-title">{{ t('footer.legalTitle') }}</h2>
+      <p class="site-footer-legal-text">{{ t('footer.legalText') }}</p>
       <a
         class="site-footer-link site-footer-social-link"
         href="https://github.com/v-pelaez"

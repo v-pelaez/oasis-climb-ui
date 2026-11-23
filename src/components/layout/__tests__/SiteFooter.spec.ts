@@ -19,5 +19,7 @@ describe('SiteFooter', () => {
     const input = wrapper.get('input[type="email"]')
     const label = wrapper.get(`label[for="${input.attributes('id')}"]`)
     expect(label.text()).toBe('Correo electrónico')
+    // `@` is escaped in the message (vue-i18n reads it as a linked message otherwise)
+    expect(input.attributes('placeholder')).toBe('correo@electronico.com')
   })
 })
