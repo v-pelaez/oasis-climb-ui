@@ -31,7 +31,7 @@ describe('HomeView', () => {
     for (const id of ['novedades', 'ranking', 'registro', 'about-us']) {
       expect(wrapper.find(`#${id}`).exists()).toBe(true)
     }
-    expect(wrapper.findAll('.card-title').map((el) => el.text())).toEqual(
+    expect(wrapper.findAll('.news-card-title').map((el) => el.text())).toEqual(
       news.map((item) => item.title),
     )
     expect(wrapper.text()).toContain('🇪🇸 España')
