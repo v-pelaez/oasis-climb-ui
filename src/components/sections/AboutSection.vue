@@ -1,23 +1,26 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import SectionBanner from '@/components/ui/SectionBanner.vue'
 import { about } from '@/data/site'
+
+const { t } = useI18n()
 </script>
 
 <template>
   <div class="about-tagline">
-    <p class="about-tagline-text">{{ about.tagline }}</p>
+    <p class="about-tagline-text">{{ t('about.tagline') }}</p>
   </div>
-  <img class="about-cover" :src="about.image.src" :alt="about.image.alt" loading="lazy" />
+  <img class="about-cover" :src="about.image.src" :alt="t('about.imageAlt')" loading="lazy" />
 
   <section id="about-us" class="about" aria-labelledby="about-us-title">
-    <SectionBanner id="about-us-title" :title="about.title" />
+    <SectionBanner id="about-us-title" :title="t('about.title')" />
 
     <div class="about-body">
       <div class="about-text">
-        <h3 class="about-heading">{{ about.heading }}</h3>
-        <p class="about-lead">{{ about.lead }}</p>
-        <p class="about-paragraph">{{ about.body }}</p>
-        <p class="about-quote">«{{ about.quote }}»</p>
+        <h3 class="about-heading">{{ t('about.heading') }}</h3>
+        <p class="about-lead">{{ t('about.lead') }}</p>
+        <p class="about-paragraph">{{ t('about.body') }}</p>
+        <p class="about-quote">{{ t('about.quote') }}</p>
       </div>
 
       <div class="about-media">
@@ -27,10 +30,10 @@ import { about } from '@/data/site'
           preload="metadata"
           playsinline
           :poster="about.video.poster"
-          :aria-label="about.video.label"
+          :aria-label="t('about.videoLabel')"
         >
           <source :src="about.video.src" :type="about.video.type" />
-          Tu navegador no puede reproducir este vídeo.
+          {{ t('about.videoFallback') }}
         </video>
       </div>
     </div>

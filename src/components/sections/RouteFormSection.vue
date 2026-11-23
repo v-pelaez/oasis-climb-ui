@@ -9,19 +9,18 @@ import {
   DialogRoot,
   DialogTitle,
 } from 'reka-ui'
+import { useI18n } from 'vue-i18n'
 import SectionBanner from '@/components/ui/SectionBanner.vue'
 import { useRouteForm, type RouteFormField } from '@/composables/useRouteForm'
-import {
-  difficultyOptions,
-  disciplineOptions,
-  routeFormCopy as copy,
-  routeFormFields as fields,
-  seasonOptions,
-} from '@/data/routeForm'
+import { difficultyOptions, disciplineOptions, seasonOptions } from '@/data/routeForm'
 
 const headerImage = new URL('../../assets/snowmountain.jpg', import.meta.url).href
 
+const { t } = useI18n()
 const { form, errors, validate, reset } = useRouteForm()
+
+const label = (field: RouteFormField) => t(`routeForm.fields.${field}.label`)
+const placeholder = (field: RouteFormField) => t(`routeForm.fields.${field}.placeholder`)
 
 /** DOM id of each field (the checkbox keeps its historical `termsCheck`). */
 const fieldId = (field: RouteFormField) => (field === 'terms' ? 'termsCheck' : field)
@@ -58,56 +57,56 @@ function returnFocus(event: Event) {
 
 <template>
   <section class="route-form-section" aria-labelledby="registro-title">
-    <p class="route-form-tagline">{{ copy.tagline }}</p>
-    <img :src="headerImage" class="route-form-header-image" :alt="copy.headerImageAlt" />
+    <p class="route-form-tagline">{{ t('routeForm.tagline') }}</p>
+    <img :src="headerImage" class="route-form-header-image" :alt="t('routeForm.headerImageAlt')" />
 
     <div id="registro" class="route-form-body">
-      <SectionBanner id="registro-title" :title="copy.title" />
+      <SectionBanner id="registro-title" :title="t('routeForm.title')" />
 
       <div class="route-form-card">
         <form novalidate class="route-form" @submit.prevent="handleSubmit">
-          <h3 class="route-form-title">{{ copy.formTitle }}</h3>
+          <h3 class="route-form-title">{{ t('routeForm.formTitle') }}</h3>
 
           <div class="route-form-grid">
             <div class="route-form-column">
               <div class="field">
                 <label :for="fieldId('routeName')" class="field-label">
-                  {{ fields.routeName.label }}
+                  {{ label('routeName') }}
                 </label>
                 <input
                   v-bind="a11y('routeName')"
                   v-model="form.routeName"
                   type="text"
                   class="field-control"
-                  :placeholder="fields.routeName.placeholder"
+                  :placeholder="placeholder('routeName')"
                   required
                 />
                 <p v-if="errors.routeName" :id="errorId('routeName')" class="field-error">
-                  {{ errors.routeName }}
+                  {{ t(errors.routeName) }}
                 </p>
               </div>
 
               <div class="field">
                 <label :for="fieldId('location')" class="field-label">
-                  {{ fields.location.label }}
+                  {{ label('location') }}
                 </label>
                 <input
                   v-bind="a11y('location')"
                   v-model="form.location"
                   type="text"
                   class="field-control"
-                  :placeholder="fields.location.placeholder"
+                  :placeholder="placeholder('location')"
                   required
                 />
                 <p v-if="errors.location" :id="errorId('location')" class="field-error">
-                  {{ errors.location }}
+                  {{ t(errors.location) }}
                 </p>
               </div>
 
               <div class="field-pair">
                 <div class="field">
                   <label :for="fieldId('markerType')" class="field-label">
-                    {{ fields.markerType.label }}
+                    {{ label('markerType') }}
                   </label>
                   <select
                     v-bind="a11y('markerType')"
@@ -115,23 +114,19 @@ function returnFocus(event: Event) {
                     class="field-control field-select"
                     required
                   >
-                    <option value="" disabled>{{ fields.markerType.placeholder }}</option>
-                    <option
-                      v-for="option in disciplineOptions"
-                      :key="option.value"
-                      :value="option.value"
-                    >
-                      {{ option.label }}
+                    <option value="" disabled>{{ placeholder('markerType') }}</option>
+                    <option v-for="option in disciplineOptions" :key="option" :value="option">
+                      {{ t(`routeForm.options.discipline.${option}`) }}
                     </option>
                   </select>
                   <p v-if="errors.markerType" :id="errorId('markerType')" class="field-error">
-                    {{ errors.markerType }}
+                    {{ t(errors.markerType) }}
                   </p>
                 </div>
 
                 <div class="field">
                   <label :for="fieldId('difficulty')" class="field-label">
-                    {{ fields.difficulty.label }}
+                    {{ label('difficulty') }}
                   </label>
                   <select
                     v-bind="a11y('difficulty')"
@@ -139,24 +134,20 @@ function returnFocus(event: Event) {
                     class="field-control field-select"
                     required
                   >
-                    <option value="" disabled>{{ fields.difficulty.placeholder }}</option>
-                    <option
-                      v-for="option in difficultyOptions"
-                      :key="option.value"
-                      :value="option.value"
-                    >
-                      {{ option.label }}
+                    <option value="" disabled>{{ placeholder('difficulty') }}</option>
+                    <option v-for="option in difficultyOptions" :key="option" :value="option">
+                      {{ t(`routeForm.options.difficulty.${option}`) }}
                     </option>
                   </select>
                   <p v-if="errors.difficulty" :id="errorId('difficulty')" class="field-error">
-                    {{ errors.difficulty }}
+                    {{ t(errors.difficulty) }}
                   </p>
                 </div>
               </div>
 
               <div class="field">
                 <label :for="fieldId('gpsLink')" class="field-label">
-                  {{ fields.gpsLink.label }}
+                  {{ label('gpsLink') }}
                 </label>
                 <input
                   v-bind="a11y('gpsLink')"
@@ -164,10 +155,10 @@ function returnFocus(event: Event) {
                   type="url"
                   inputmode="url"
                   class="field-control"
-                  :placeholder="fields.gpsLink.placeholder"
+                  :placeholder="placeholder('gpsLink')"
                 />
                 <p v-if="errors.gpsLink" :id="errorId('gpsLink')" class="field-error">
-                  {{ errors.gpsLink }}
+                  {{ t(errors.gpsLink) }}
                 </p>
               </div>
             </div>
@@ -176,24 +167,24 @@ function returnFocus(event: Event) {
               <div class="field-pair">
                 <div class="field">
                   <label :for="fieldId('length')" class="field-label">
-                    {{ fields.length.label }}
+                    {{ label('length') }}
                   </label>
                   <input
                     v-bind="a11y('length')"
                     v-model="form.length"
                     type="text"
                     class="field-control"
-                    :placeholder="fields.length.placeholder"
+                    :placeholder="placeholder('length')"
                     required
                   />
                   <p v-if="errors.length" :id="errorId('length')" class="field-error">
-                    {{ errors.length }}
+                    {{ t(errors.length) }}
                   </p>
                 </div>
 
                 <div class="field">
                   <label :for="fieldId('elevation')" class="field-label">
-                    {{ fields.elevation.label }}
+                    {{ label('elevation') }}
                   </label>
                   <input
                     v-bind="a11y('elevation')"
@@ -202,18 +193,18 @@ function returnFocus(event: Event) {
                     min="0"
                     inputmode="numeric"
                     class="field-control"
-                    :placeholder="fields.elevation.placeholder"
+                    :placeholder="placeholder('elevation')"
                     required
                   />
                   <p v-if="errors.elevation" :id="errorId('elevation')" class="field-error">
-                    {{ errors.elevation }}
+                    {{ t(errors.elevation) }}
                   </p>
                 </div>
               </div>
 
               <div class="field">
                 <label :for="fieldId('duration')" class="field-label">
-                  {{ fields.duration.label }}
+                  {{ label('duration') }}
                 </label>
                 <input
                   v-bind="a11y('duration')"
@@ -223,17 +214,17 @@ function returnFocus(event: Event) {
                   step="0.5"
                   inputmode="decimal"
                   class="field-control"
-                  :placeholder="fields.duration.placeholder"
+                  :placeholder="placeholder('duration')"
                   required
                 />
                 <p v-if="errors.duration" :id="errorId('duration')" class="field-error">
-                  {{ errors.duration }}
+                  {{ t(errors.duration) }}
                 </p>
               </div>
 
               <div class="field">
                 <label :for="fieldId('season')" class="field-label">
-                  {{ fields.season.label }}
+                  {{ label('season') }}
                 </label>
                 <select
                   v-bind="a11y('season')"
@@ -241,47 +232,47 @@ function returnFocus(event: Event) {
                   class="field-control field-select"
                   required
                 >
-                  <option value="" disabled>{{ fields.season.placeholder }}</option>
-                  <option v-for="option in seasonOptions" :key="option.value" :value="option.value">
-                    {{ option.label }}
+                  <option value="" disabled>{{ placeholder('season') }}</option>
+                  <option v-for="option in seasonOptions" :key="option" :value="option">
+                    {{ t(`routeForm.options.season.${option}`) }}
                   </option>
                 </select>
                 <p v-if="errors.season" :id="errorId('season')" class="field-error">
-                  {{ errors.season }}
+                  {{ t(errors.season) }}
                 </p>
               </div>
 
               <div class="field">
                 <label :for="fieldId('equipment')" class="field-label">
-                  {{ fields.equipment.label }}
+                  {{ label('equipment') }}
                 </label>
                 <input
                   v-bind="a11y('equipment')"
                   v-model="form.equipment"
                   type="text"
                   class="field-control"
-                  :placeholder="fields.equipment.placeholder"
+                  :placeholder="placeholder('equipment')"
                   required
                 />
                 <p v-if="errors.equipment" :id="errorId('equipment')" class="field-error">
-                  {{ errors.equipment }}
+                  {{ t(errors.equipment) }}
                 </p>
               </div>
             </div>
 
             <div class="field route-form-full">
               <label :for="fieldId('description')" class="field-label">
-                {{ fields.description.label }}
+                {{ label('description') }}
               </label>
               <textarea
                 v-bind="a11y('description')"
                 v-model="form.description"
                 class="field-control"
-                :placeholder="fields.description.placeholder"
+                :placeholder="placeholder('description')"
                 required
               ></textarea>
               <p v-if="errors.description" :id="errorId('description')" class="field-error">
-                {{ errors.description }}
+                {{ t(errors.description) }}
               </p>
             </div>
 
@@ -295,17 +286,17 @@ function returnFocus(event: Event) {
                   required
                 />
                 <label :for="fieldId('terms')" class="field-check-label">
-                  {{ fields.terms.label }}
+                  {{ label('terms') }}
                 </label>
               </div>
               <p v-if="errors.terms" :id="errorId('terms')" class="field-error">
-                {{ errors.terms }}
+                {{ t(errors.terms) }}
               </p>
             </div>
 
             <div class="route-form-full route-form-actions">
               <button ref="submitButton" type="submit" class="route-form-button">
-                {{ copy.submit }}
+                {{ t('routeForm.submit') }}
               </button>
             </div>
           </div>
@@ -317,12 +308,14 @@ function returnFocus(event: Event) {
       <DialogPortal>
         <DialogOverlay class="route-dialog-overlay" />
         <DialogContent class="route-dialog" @close-auto-focus="returnFocus">
-          <DialogTitle class="route-dialog-title">{{ copy.dialogTitle }}</DialogTitle>
+          <DialogTitle class="route-dialog-title">{{ t('routeForm.dialog.title') }}</DialogTitle>
           <p class="route-dialog-route">{{ registeredRoute }}</p>
-          <DialogDescription class="route-dialog-body">{{ copy.dialogBody }}</DialogDescription>
-          <p class="route-dialog-note">{{ copy.dialogNote }}</p>
+          <DialogDescription class="route-dialog-body">{{
+            t('routeForm.dialog.body')
+          }}</DialogDescription>
+          <p class="route-dialog-note">{{ t('routeForm.dialog.note') }}</p>
           <DialogClose class="route-form-button route-dialog-close">
-            {{ copy.dialogClose }}
+            {{ t('routeForm.dialog.close') }}
           </DialogClose>
         </DialogContent>
       </DialogPortal>

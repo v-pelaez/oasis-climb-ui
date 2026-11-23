@@ -1,14 +1,19 @@
 import { computed, reactive, ref } from 'vue'
 import type { RouteFormData } from '@/types/routeForm'
-import {
-  emptyRouteForm,
-  optionalRouteFormFields,
-  routeFormFieldOrder,
-  routeFormMessages,
-} from '@/data/routeForm'
+import { emptyRouteForm, optionalRouteFormFields, routeFormFieldOrder } from '@/data/routeForm'
 
 export type RouteFormField = keyof RouteFormData
+/**
+ * Locale key of each field's error (e.g. `routeForm.errors.invalidUrl`): the
+ * component translates it, so messages follow the active language.
+ */
 export type RouteFormErrors = Partial<Record<RouteFormField, string>>
+
+export const routeFormErrorKeys = {
+  required: (field: RouteFormField) => `routeForm.errors.required.${field}`,
+  notNegativeNumber: 'routeForm.errors.notNegativeNumber',
+  invalidUrl: 'routeForm.errors.invalidUrl',
+} as const
 
 const numericFields: readonly RouteFormField[] = ['elevation', 'duration']
 
@@ -27,22 +32,24 @@ function isValidUrl(value: string): boolean {
   }
 }
 
-/** Returns the error message for every invalid field of `data`. */
+/** Returns the error message key for every invalid field of `data`. */
 export function validateRouteForm(data: RouteFormData): RouteFormErrors {
   const errors: RouteFormErrors = {}
 
   for (const field of routeFormFieldOrder) {
     const value = data[field]
     if (isEmpty(value)) {
-      if (!optionalRouteFormFields.includes(field)) errors[field] = routeFormMessages.required[field]
+      if (!optionalRouteFormFields.includes(field))
+        errors[field] = routeFormErrorKeys.required(field)
       continue
     }
     if (numericFields.includes(field)) {
       const number = typeof value === 'number' ? value : Number(value)
-      if (!Number.isFinite(number) || number < 0) errors[field] = routeFormMessages.notNegativeNumber
+      if (!Number.isFinite(number) || number < 0)
+        errors[field] = routeFormErrorKeys.notNegativeNumber
     }
     if (field === 'gpsLink' && !isValidUrl(String(value))) {
-      errors[field] = routeFormMessages.invalidUrl
+      errors[field] = routeFormErrorKeys.invalidUrl
     }
   }
 

@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import AppIcon from './AppIcon.vue'
 import { useScrollTop } from '@/composables/useScrollTop'
 
+const { t } = useI18n()
 const { isVisible, scrollToTop } = useScrollTop(300)
 </script>
 
@@ -11,7 +13,7 @@ const { isVisible, scrollToTop } = useScrollTop(300)
       v-if="isVisible"
       type="button"
       class="scroll-top"
-      aria-label="Volver arriba"
+      :aria-label="t('scrollTop')"
       @click="scrollToTop"
     >
       <AppIcon name="arrow-up" size="24px" />

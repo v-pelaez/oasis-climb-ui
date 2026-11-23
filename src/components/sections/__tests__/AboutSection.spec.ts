@@ -2,14 +2,15 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import AboutSection from '../AboutSection.vue'
 import { about } from '@/data/site'
+import es from '@/locales/es.json'
 
 describe('AboutSection', () => {
   it('renders the section with its banner, text and video', () => {
     const wrapper = mount(AboutSection)
     const section = wrapper.find('section#about-us')
     expect(section.exists()).toBe(true)
-    expect(section.find('.section-banner').text()).toBe(about.title)
-    expect(section.text()).toContain(about.heading)
+    expect(section.find('.section-banner').text()).toBe(es.about.title)
+    expect(section.text()).toContain(es.about.heading)
 
     const video = section.find('video')
     expect(video.attributes('controls')).toBeDefined()

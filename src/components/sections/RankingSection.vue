@@ -1,24 +1,36 @@
 <script setup lang="ts">
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'reka-ui'
+import { useI18n } from 'vue-i18n'
 import SectionBanner from '@/components/ui/SectionBanner.vue'
+import CountryFlag from '@/components/ui/CountryFlag.vue'
 import type { RankingId } from '@/types/ranking'
-import { countryFlag, countryName, rankings } from '@/data/rankings'
+import { countryName, formatPoints, rankings } from '@/data/rankings'
 
 /**
  * Active tab. Exposed with `v-model` so other components (e.g. the search)
  * can open a given ranking from outside.
  */
+const { t, locale } = useI18n()
+
+const headers = (id: RankingId) => [
+  t('ranking.headers.rank'),
+  t('ranking.headers.climber'),
+  t('ranking.headers.country'),
+  t(`ranking.metric.${id}`),
+  t('ranking.headers.points'),
+]
+
 const activeTab = defineModel<RankingId>({ default: 'dificultad' })
 </script>
 
 <template>
   <section id="ranking" class="ranking" aria-labelledby="ranking-title">
-    <SectionBanner id="ranking-title" title="Rankings" />
+    <SectionBanner id="ranking-title" :title="t('ranking.title')" />
 
     <TabsRoot v-model="activeTab" class="ranking-tabs">
-      <TabsList class="ranking-tablist" aria-label="Rankings">
+      <TabsList class="ranking-tablist" :aria-label="t('ranking.tabsLabel')">
         <TabsTrigger v-for="tab in rankings" :key="tab.id" :value="tab.id" class="ranking-tab">
-          {{ tab.title }}
+          {{ t(`ranking.tabs.${tab.id}`) }}
         </TabsTrigger>
       </TabsList>
 
@@ -27,12 +39,12 @@ const activeTab = defineModel<RankingId>({ default: 'dificultad' })
           <table class="ranking-table">
             <caption class="visually-hidden">
               {{
-                tab.title
+                t(`ranking.tabs.${tab.id}`)
               }}
             </caption>
             <thead>
               <tr>
-                <th v-for="header in tab.headers" :key="header" scope="col">{{ header }}</th>
+                <th v-for="header in headers(tab.id)" :key="header" scope="col">{{ header }}</th>
               </tr>
             </thead>
             <tbody>
@@ -44,13 +56,15 @@ const activeTab = defineModel<RankingId>({ default: 'dificultad' })
                 <td class="ranking-rank">{{ entry.rank }}</td>
                 <td>{{ entry.name }}</td>
                 <td>
-                  <span aria-hidden="true">{{ countryFlag(entry.country) }}</span>
-                  {{ countryName(entry.country) ?? entry.country }}
+                  <span class="ranking-country">
+                    <CountryFlag :code="entry.country" />
+                    {{ countryName(entry.country, locale) ?? entry.country }}
+                  </span>
                 </td>
                 <td>
                   <span class="ranking-badge">{{ entry.metric }}</span>
                 </td>
-                <td>{{ entry.points }}</td>
+                <td>{{ formatPoints(entry.points, locale) }}</td>
               </tr>
             </tbody>
           </table>
@@ -153,6 +167,12 @@ const activeTab = defineModel<RankingId>({ default: 'dificultad' })
   tbody tr:nth-child(odd) {
     background: rgb(0 0 0 / 5%);
   }
+}
+
+.ranking-country {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--oc-space-2);
 }
 
 .ranking-rank {

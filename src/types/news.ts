@@ -5,8 +5,8 @@ export interface RelativeDate {
 }
 
 export interface NewsItem {
-  title: string
-  text: string
+  /** Title and text at `news.items.<id>` in the locale files. */
+  id: string
   img: string
   published: RelativeDate
 }

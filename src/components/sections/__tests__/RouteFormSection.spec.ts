@@ -1,7 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
 import RouteFormSection from '../RouteFormSection.vue'
-import { routeFormMessages } from '@/data/routeForm'
+import es from '@/locales/es.json'
+import en from '@/locales/en.json'
+import { testI18n } from '@/__tests__/setup'
 
 let wrapper: VueWrapper | undefined
 
@@ -51,7 +53,7 @@ describe('RouteFormSection', () => {
     const name = w.get('#routeName')
     expect(name.attributes('aria-invalid')).toBe('true')
     expect(name.attributes('aria-describedby')).toBe('routeName-error')
-    expect(w.get('#routeName-error').text()).toBe(routeFormMessages.required.routeName)
+    expect(w.get('#routeName-error').text()).toBe(es.routeForm.errors.required.routeName)
     expect(w.get('#termsCheck').attributes('aria-describedby')).toBe('termsCheck-error')
     expect(w.find('#gpsLink').attributes('aria-invalid')).toBeUndefined()
     expect(document.activeElement).toBe(name.element)
@@ -71,10 +73,32 @@ describe('RouteFormSection', () => {
     await w.get('form').trigger('submit')
     await flushPromises()
 
-    expect(w.get('#elevation-error').text()).toBe(routeFormMessages.notNegativeNumber)
-    expect(w.get('#gpsLink-error').text()).toBe(routeFormMessages.invalidUrl)
+    expect(w.get('#elevation-error').text()).toBe(es.routeForm.errors.notNegativeNumber)
+    expect(w.get('#gpsLink-error').text()).toBe(es.routeForm.errors.invalidUrl)
     expect(document.activeElement).toBe(w.get('#gpsLink').element)
     expect(document.querySelector('[role="dialog"]')).toBeNull()
+  })
+
+  it('shows labels, options and validation messages in the active language', async () => {
+    const w = mountForm()
+    await w.get('form').trigger('submit')
+    await flushPromises()
+    expect(w.get('#elevation-error').text()).toBe(es.routeForm.errors.required.elevation)
+
+    testI18n.global.locale.value = 'en'
+    await flushPromises()
+
+    expect(w.get('#elevation-error').text()).toBe(en.routeForm.errors.required.elevation)
+    expect(w.get('#termsCheck-error').text()).toBe(en.routeForm.errors.required.terms)
+    expect(w.get('label[for="routeName"]').text()).toBe(en.routeForm.fields.routeName.label)
+    expect(w.get('#routeName').attributes('placeholder')).toBe(
+      en.routeForm.fields.routeName.placeholder,
+    )
+    expect(w.findAll('#markerType option').map((o) => o.text())).toEqual([
+      en.routeForm.fields.markerType.placeholder,
+      ...Object.values(en.routeForm.options.discipline),
+    ])
+    expect(w.get('.route-form-button').text()).toBe(en.routeForm.submit)
   })
 
   it('opens the dialog with the route name, resets the form and returns focus on Esc', async () => {

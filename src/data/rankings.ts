@@ -3,8 +3,6 @@ import type { CountryCode, Ranking } from '@/types/ranking'
 export const rankings: Ranking[] = [
   {
     id: 'dificultad',
-    title: 'Ranking de dificultad',
-    headers: ['#', 'Escalador', 'País', 'Dificultad Máxima', 'Puntos'],
     data: [
       { rank: 1, name: 'Alberto Ginés', country: 'ES', metric: '9a+', points: 4485 },
       { rank: 2, name: 'Jan Novak', country: 'CZ', metric: '9a', points: 4200 },
@@ -20,8 +18,6 @@ export const rankings: Ranking[] = [
   },
   {
     id: 'velocidad',
-    title: 'Ranking de velocidad',
-    headers: ['#', 'Escalador', 'País', 'Mejor Tiempo', 'Puntos'],
     data: [
       { rank: 1, name: 'Martina López', country: 'ES', metric: '5.15 s', points: 1000 },
       { rank: 2, name: 'David Novak', country: 'CZ', metric: '5.34 s', points: 970 },
@@ -37,16 +33,12 @@ export const rankings: Ranking[] = [
   },
 ]
 
-const regionNames = new Intl.DisplayNames('es', { type: 'region', fallback: 'none' })
-
-/** Spanish country name for an ISO 3166-1 alpha-2 code, or `undefined` if unknown. */
-export function countryName(code: CountryCode): string | undefined {
-  return regionNames.of(code)
+/** Country name for an ISO 3166-1 alpha-2 code in the given language, or `undefined` if unknown. */
+export function countryName(code: CountryCode, locale: string): string | undefined {
+  return new Intl.DisplayNames(locale, { type: 'region', fallback: 'none' }).of(code)
 }
 
-/** Flag emoji built from the code's regional indicator symbols (`ES` → 🇪🇸). */
-export function countryFlag(code: CountryCode): string {
-  return String.fromCodePoint(
-    ...[...code.toUpperCase()].map((char) => 0x1f1e6 + char.charCodeAt(0) - 65),
-  )
+/** Ranking points with the language's digit grouping. */
+export function formatPoints(points: number, locale: string): string {
+  return new Intl.NumberFormat(locale).format(points)
 }

@@ -24,7 +24,17 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 - **Framework & Build:** Vue 3 (`^3.5.26`) · Vue Router 4 (`^4.6.4`) · Vite 7 (`^7.3.1`)
 - **Language & Type Checking:** TypeScript (`~5.9.3`) · `vue-tsc`
 - **UI & Styling:** Sass design tokens and own layout components · Reka UI (accessible primitives) · self-hosted Outfit and LemonMilk fonts
+- **i18n:** vue-i18n 11 (Composition API), Spanish and English
 - **Code Quality:** ESLint 9 · Prettier 3 · Vitest (`@vue/test-utils`, jsdom) · GitHub Actions CI
+
+## Internationalisation
+
+The site is in Spanish and English (`vue-i18n`, `legacy: false`, set up in `src/i18n.ts`).
+
+- **Messages:** `src/locales/es.json` and `src/locales/en.json`, with the same keys (a test checks it). Every visible text, `alt`, `aria-label`, placeholder, popover and validation message lives there; `src/data/*.ts` keeps only keys, media and values (climber names are not translated).
+- **Initial language** (`src/composables/useLocale.ts`): the saved choice (`localStorage['oasis-climb:locale']`), else the first browser language that is `es` or `en`, else English. Changing it saves the choice and updates `<html lang>`, the title and the meta description.
+- **Language button** (`LanguageToggle`): names the other language in that language («English» / «Español»); below 400 px only a globe and the code.
+- **Formatting:** news dates (`Intl.RelativeTimeFormat`), countries (`Intl.DisplayNames`) and ranking points (`Intl.NumberFormat`) follow the active language. Ranking flags are inline SVG (`CountryFlag`), since Chrome/Edge on Windows do not draw emoji flags.
 
 ## Local Development
 

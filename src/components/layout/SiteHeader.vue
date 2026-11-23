@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { nextTick, ref, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import AppIcon from '@/components/ui/AppIcon.vue'
+import LanguageToggle from '@/components/ui/LanguageToggle.vue'
 import NotAvailablePopover from '@/components/ui/NotAvailablePopover.vue'
 import { useScrollSpy } from '@/composables/useScrollSpy'
 import { navLinks } from '@/data/site'
 import logoUrl from '@/assets/OasisClimb.svg'
 
 const MENU_ID = 'site-menu'
+
+const { t } = useI18n()
 
 const sectionIds = navLinks.map((link) => link.href.slice(1))
 const { activeId } = useScrollSpy(sectionIds)
@@ -33,14 +37,14 @@ function onNavigate(href: string) {
 
 <template>
   <header class="site-header" @keydown.esc="closeMenu({ restoreFocus: true })">
-    <a class="skip-link" href="#main">Saltar al contenido</a>
+    <a class="skip-link" href="#main">{{ t('header.skipLink') }}</a>
 
     <div class="site-header-bar">
-      <a class="site-header-logo" href="#" aria-label="Oasis Climb, inicio">
+      <a class="site-header-logo" href="#" :aria-label="t('header.home')">
         <img :src="logoUrl" alt="" width="120" height="57" />
       </a>
 
-      <nav class="site-header-nav" aria-label="Principal">
+      <nav class="site-header-nav" :aria-label="t('header.navLabel')">
         <ul class="site-nav">
           <li v-for="link in navLinks" :key="link.href" class="site-nav-item">
             <a
@@ -49,28 +53,30 @@ function onNavigate(href: string) {
               :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
               @click="onNavigate(link.href)"
             >
-              {{ link.text }}
+              {{ t(`nav.${link.key}`) }}
             </a>
           </li>
         </ul>
       </nav>
 
       <div class="site-header-tools">
-        <!-- Placeholder search until RFP-25 (real search); RFP-24 adds the language button here. -->
+        <!-- Placeholder search until RFP-25 (real search). -->
         <form class="site-search" role="search" @submit.prevent>
           <input
             v-model="searchQuery"
             class="site-search-input"
             type="search"
-            placeholder="Buscar…"
-            aria-label="Buscar"
+            :placeholder="t('header.searchPlaceholder')"
+            :aria-label="t('header.searchLabel')"
           />
-          <NotAvailablePopover subject="La búsqueda" side="bottom">
-            <button type="button" class="site-search-btn" aria-label="Buscar">
+          <NotAvailablePopover :message="t('notAvailable.search')" side="bottom">
+            <button type="button" class="site-search-btn" :aria-label="t('header.searchLabel')">
               <AppIcon name="search" size="18px" />
             </button>
           </NotAvailablePopover>
         </form>
+
+        <LanguageToggle />
 
         <button
           ref="menuButton"
@@ -78,7 +84,7 @@ function onNavigate(href: string) {
           class="site-menu-btn"
           :aria-expanded="menuOpen ? 'true' : 'false'"
           :aria-controls="MENU_ID"
-          :aria-label="menuOpen ? 'Cerrar menú' : 'Abrir menú'"
+          :aria-label="menuOpen ? t('header.menuClose') : t('header.menuOpen')"
           @click="toggleMenu"
         >
           <AppIcon :name="menuOpen ? 'close' : 'menu'" size="18px" />
@@ -86,7 +92,7 @@ function onNavigate(href: string) {
       </div>
     </div>
 
-    <nav v-show="menuOpen" :id="MENU_ID" class="site-menu" aria-label="Principal">
+    <nav v-show="menuOpen" :id="MENU_ID" class="site-menu" :aria-label="t('header.navLabel')">
       <ul class="site-nav">
         <li v-for="link in navLinks" :key="link.href" class="site-nav-item">
           <a
@@ -95,7 +101,7 @@ function onNavigate(href: string) {
             :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
             @click="onNavigate(link.href)"
           >
-            {{ link.text }}
+            {{ t(`nav.${link.key}`) }}
           </a>
         </li>
       </ul>

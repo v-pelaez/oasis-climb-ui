@@ -1,5 +1,6 @@
 export interface NavLink {
-  text: string
+  /** Text at `nav.<key>` in the locale files. */
+  key: 'news' | 'ranking' | 'register' | 'about'
   href: `#${string}`
 }
 
@@ -7,6 +8,7 @@ export interface NavLink {
 export type SocialIcon = 'instagram' | 'facebook' | 'x' | 'github'
 
 export interface SocialLink {
+  /** Brand name (not translated). */
   name: string
   /** Empty while the profile does not exist: the footer shows a «no disponible» popover. */
   url: string
@@ -15,24 +17,17 @@ export interface SocialLink {
 
 export interface HeroVideo {
   src: string
-  phrase: string
-  subtext: string
+  /** Phrase and subtext at `hero.slides.<key>` in the locale files. */
+  key: 'aspire' | 'build' | 'achieve'
 }
 
+/** Media of the about section; its copy lives under `about.*` in the locale files. */
 export interface AboutContent {
-  /** Yellow strip above the header image. */
-  tagline: string
-  image: { src: string; alt: string }
-  title: string
-  heading: string
-  lead: string
-  body: string
-  quote: string
+  image: { src: string }
   video: {
     src: string
     /** MIME type of `src`; must match the real file. */
     type: `video/${string}`
     poster: string
-    label: string
   }
 }

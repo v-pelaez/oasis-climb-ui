@@ -2,6 +2,9 @@ import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vite
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
 import HeroCarousel from '../HeroCarousel.vue'
 import { heroVideos } from '@/data/site'
+import es from '@/locales/es.json'
+
+const copy = (i: number) => es.hero.slides[heroVideos[i]!.key]
 
 type Listener = EventListenerOrEventListenerObject
 
@@ -83,17 +86,17 @@ describe('HeroCarousel', () => {
   it('advances on `ended` with its phrase and wraps to the first after the last', async () => {
     wrapper = mount(HeroCarousel)
     await flushPromises()
-    expect(phrase()).toBe(heroVideos[0]!.phrase)
+    expect(phrase()).toBe(copy(0).phrase)
 
     for (let i = 1; i < heroVideos.length; i++) {
       await endActive()
-      expect(phrase()).toBe(heroVideos[i]!.phrase)
-      expect(wrapper.find('.hero-subtext').text()).toBe(heroVideos[i]!.subtext)
+      expect(phrase()).toBe(copy(i).phrase)
+      expect(wrapper.find('.hero-subtext').text()).toBe(copy(i).subtext)
       expect(activeVideo().querySelector('source')!.getAttribute('src')).toBe(heroVideos[i]!.src)
     }
 
     await endActive()
-    expect(phrase()).toBe(heroVideos[0]!.phrase)
+    expect(phrase()).toBe(copy(0).phrase)
   })
 
   it('plays the next video while the finished one is still fading out', async () => {
@@ -109,9 +112,9 @@ describe('HeroCarousel', () => {
     first.dispatchEvent(new Event('ended'))
     await flushPromises()
 
-    const second = wrapper.findAll('video').find(
-      (v) => v.find('source').attributes('src') === heroVideos[1]!.src,
-    )!.element
+    const second = wrapper
+      .findAll('video')
+      .find((v) => v.find('source').attributes('src') === heroVideos[1]!.src)!.element
     expect(play.mock.contexts).toEqual([second])
     expect(pause.mock.contexts).not.toContain(second)
   })
@@ -177,7 +180,7 @@ describe('HeroCarousel', () => {
     await flushPromises()
 
     expect(play).not.toHaveBeenCalled()
-    expect(phrase()).toBe(heroVideos[0]!.phrase)
+    expect(phrase()).toBe(copy(0).phrase)
     expect(wrapper.find('button.hero-toggle').attributes('aria-pressed')).toBe('true')
   })
 

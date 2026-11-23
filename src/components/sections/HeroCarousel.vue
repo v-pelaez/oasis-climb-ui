@@ -5,11 +5,13 @@
  * the active one ends and fades out the next is already there.
  */
 import { computed, useTemplateRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import { useCarousel } from '@/composables/useCarousel'
 import { useReducedMotion } from '@/composables/useReducedMotion'
-import { heroTagline, heroVideos as videos } from '@/data/site'
+import { heroVideos as videos } from '@/data/site'
 
+const { t } = useI18n()
 const stage = useTemplateRef<HTMLElement>('stage')
 const reducedMotion = useReducedMotion()
 const autoplay = computed(() => !reducedMotion.value)
@@ -31,10 +33,10 @@ const current = computed(() => videos[index.value])
 
 <template>
   <div class="hero-tagline">
-    <p class="hero-tagline-text">{{ heroTagline }}</p>
+    <p class="hero-tagline-text">{{ t('hero.tagline') }}</p>
   </div>
 
-  <section class="hero" aria-label="Presentación">
+  <section class="hero" :aria-label="t('hero.label')">
     <div ref="stage" class="hero-stage">
       <TransitionGroup name="hero-fade">
         <video
@@ -59,8 +61,8 @@ const current = computed(() => videos[index.value])
     <div class="hero-overlay">
       <Transition name="hero-text" mode="out-in">
         <div v-if="current" :key="index" class="hero-text">
-          <h1 class="hero-phrase">{{ current.phrase }}</h1>
-          <p class="hero-subtext">{{ current.subtext }}</p>
+          <h1 class="hero-phrase">{{ t(`hero.slides.${current.key}.phrase`) }}</h1>
+          <p class="hero-subtext">{{ t(`hero.slides.${current.key}.subtext`) }}</p>
         </div>
       </Transition>
     </div>
@@ -68,7 +70,7 @@ const current = computed(() => videos[index.value])
     <button
       type="button"
       class="hero-toggle"
-      aria-label="Pausar vídeos de portada"
+      :aria-label="t('hero.pause')"
       :aria-pressed="paused"
       @click="toggle"
     >

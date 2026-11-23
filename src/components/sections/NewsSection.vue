@@ -7,9 +7,12 @@ import {
   TooltipRoot,
   TooltipTrigger,
 } from 'reka-ui'
+import { useI18n } from 'vue-i18n'
 import SectionBanner from '@/components/ui/SectionBanner.vue'
 import NotAvailablePopover from '@/components/ui/NotAvailablePopover.vue'
 import { formatRelativeDate, news } from '@/data/news'
+
+const { t, locale } = useI18n()
 
 /** Pages shown in the (non-functional) pagination; the first one is the current page. */
 const pages = [1, 2, 3]
@@ -17,27 +20,34 @@ const pages = [1, 2, 3]
 
 <template>
   <section id="novedades" class="news" aria-labelledby="novedades-title">
-    <SectionBanner id="novedades-title" title="Novedades" />
+    <SectionBanner id="novedades-title" :title="t('news.title')" />
 
     <TooltipProvider :delay-duration="200">
       <ul class="news-grid" role="list">
-        <li v-for="item in news" :key="item.title">
+        <li v-for="item in news" :key="item.id">
           <TooltipRoot>
             <TooltipTrigger as-child>
               <article class="news-card" tabindex="0">
-                <img class="news-card-img" :src="item.img" :alt="item.title" loading="lazy" />
+                <img
+                  class="news-card-img"
+                  :src="item.img"
+                  :alt="t(`news.items.${item.id}.title`)"
+                  loading="lazy"
+                />
                 <div class="news-card-body">
-                  <h3 class="news-card-title">{{ item.title }}</h3>
-                  <p class="news-card-text">{{ item.text }}</p>
+                  <h3 class="news-card-title">{{ t(`news.items.${item.id}.title`) }}</h3>
+                  <p class="news-card-text">{{ t(`news.items.${item.id}.text`) }}</p>
                 </div>
                 <p class="news-card-footer">
-                  <small>Publicado {{ formatRelativeDate(item.published) }}</small>
+                  <small>{{
+                    t('news.published', { date: formatRelativeDate(item.published, locale) })
+                  }}</small>
                 </p>
               </article>
             </TooltipTrigger>
             <TooltipPortal>
               <TooltipContent class="news-tooltip" side="top" :side-offset="6">
-                Esto es una noticia de ejemplo
+                {{ t('news.tooltip') }}
                 <TooltipArrow class="news-tooltip-arrow" :width="10" :height="5" />
               </TooltipContent>
             </TooltipPortal>
@@ -46,11 +56,11 @@ const pages = [1, 2, 3]
       </ul>
     </TooltipProvider>
 
-    <nav class="news-pagination" aria-label="Paginación de noticias">
+    <nav class="news-pagination" :aria-label="t('news.paginationLabel')">
       <ul class="pagination" role="list">
         <li>
-          <NotAvailablePopover subject="La paginación" side="top">
-            <button type="button" class="page-button" aria-label="Página anterior">
+          <NotAvailablePopover :message="t('notAvailable.pagination')" side="top">
+            <button type="button" class="page-button" :aria-label="t('news.previousPage')">
               <span aria-hidden="true">&laquo;</span>
             </button>
           </NotAvailablePopover>
@@ -64,13 +74,13 @@ const pages = [1, 2, 3]
           >
             {{ page }}
           </button>
-          <NotAvailablePopover v-else subject="La paginación" side="top">
+          <NotAvailablePopover v-else :message="t('notAvailable.pagination')" side="top">
             <button type="button" class="page-button">{{ page }}</button>
           </NotAvailablePopover>
         </li>
         <li>
-          <NotAvailablePopover subject="La paginación" side="top">
-            <button type="button" class="page-button" aria-label="Página siguiente">
+          <NotAvailablePopover :message="t('notAvailable.pagination')" side="top">
+            <button type="button" class="page-button" :aria-label="t('news.nextPage')">
               <span aria-hidden="true">&raquo;</span>
             </button>
           </NotAvailablePopover>
