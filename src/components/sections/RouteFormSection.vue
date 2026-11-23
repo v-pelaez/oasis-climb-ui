@@ -277,7 +277,6 @@ function returnFocus(event: Event) {
                 v-bind="a11y('description')"
                 v-model="form.description"
                 class="field-control"
-                rows="3"
                 :placeholder="fields.description.placeholder"
                 required
               ></textarea>
@@ -469,6 +468,8 @@ function returnFocus(event: Event) {
 }
 
 textarea.field-control {
+  // Three lines of text plus padding and border.
+  block-size: calc(3lh + 1rem + 2px);
   resize: vertical;
 }
 

@@ -15,7 +15,7 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 
 - **SPA architecture & routing:** Multi-view client-side navigation structured with Vue Router 4.
 - **Rich media integration:** Hero of chained videos (each plays to its end, then the next fades in; progress bar from the video's own time, pause button, only the active and next video are loaded) and an embedded video section.
-- **Interactive UI & forms:** Client-side form validation, tooltips, and reusable Bootstrap 5 / CoreUI Vue components.
+- **Interactive UI & forms:** Client-side form validation, tooltips, tabs and dialogs built on accessible Reka UI primitives.
 - **Data presentation:** Ranking tables with client-side pagination backed by static mock datasets.
 - **Custom visual effects:** Canvas animated background (`devicePixelRatio`-aware, static with `prefers-reduced-motion`) and animated SVG elements combined with custom Sass styling.
 
@@ -23,7 +23,7 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 
 - **Framework & Build:** Vue 3 (`^3.5.26`) · Vue Router 4 (`^4.6.4`) · Vite 7 (`^7.3.1`)
 - **Language & Type Checking:** TypeScript (`~5.9.3`) · `vue-tsc`
-- **UI & Styling:** Sass design tokens and own layout components · Reka UI (accessible primitives) · self-hosted Outfit and LemonMilk fonts · Bootstrap 5 / CoreUI Vue (legacy sections, being phased out)
+- **UI & Styling:** Sass design tokens and own layout components · Reka UI (accessible primitives) · self-hosted Outfit and LemonMilk fonts
 - **Code Quality:** ESLint 9 · Prettier 3 · Vitest (`@vue/test-utils`, jsdom) · GitHub Actions CI
 
 ## Local Development
