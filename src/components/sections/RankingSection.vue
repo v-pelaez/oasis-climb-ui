@@ -105,8 +105,8 @@ const activeTab = defineModel<RankingId>({ default: 'dificultad' })
   }
 
   &[data-state='active'] {
-    border-color: var(--oc-gray-300) var(--oc-gray-300) var(--oc-white);
-    background: var(--oc-white);
+    border-color: var(--oc-gray-300) var(--oc-gray-300) var(--oc-surface);
+    background: var(--oc-surface);
     font-weight: 700;
   }
 
@@ -131,7 +131,7 @@ const activeTab = defineModel<RankingId>({ default: 'dificultad' })
 .ranking-table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--oc-white);
+  background: var(--oc-surface);
   color: var(--oc-text);
 
   th,

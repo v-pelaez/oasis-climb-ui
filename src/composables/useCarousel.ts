@@ -4,12 +4,11 @@ export interface UseCarouselOptions {
   /** Number of slides (videos). */
   count: number
   /**
-   * Returns the `<video>` of the active slide once the DOM is up to date
-   * (e.g. a query inside the carousel root).
+   * Returns the `<video>` of slide `i` once the DOM is up to date, or nothing
+   * if it is not mounted. Look it up by slide index, not by "active" state: a
+   * video that is fading out keeps its old attributes until it is removed.
    */
-  getActiveVideo: () => HTMLVideoElement | null | undefined
-  /** Returns the `<video>` mounted (buffering) for the next slide, if any. */
-  getNextVideo?: () => HTMLVideoElement | null | undefined
+  getVideo: (i: number) => HTMLVideoElement | null | undefined
   /** When false (reduced motion) nothing plays until the user resumes. */
   autoplay: Readonly<Ref<boolean>>
 }
@@ -31,8 +30,7 @@ export interface UseCarousel {
  */
 export function useCarousel({
   count,
-  getActiveVideo,
-  getNextVideo,
+  getVideo,
   autoplay,
 }: UseCarouselOptions): UseCarousel {
   const index = ref(0)
@@ -79,7 +77,7 @@ export function useCarousel({
   }
 
   function attach() {
-    const video = getActiveVideo() ?? null
+    const video = getVideo(index.value) ?? null
     if (video === current) return
     detach()
     current = video
@@ -90,7 +88,7 @@ export function useCarousel({
     video.addEventListener('ended', onEnded)
 
     // The next video only buffers; rewind it in case it played before (two slides).
-    const next = getNextVideo?.()
+    const next = count > 1 ? getVideo(nextIndex.value) : null
     if (next && next !== video) {
       next.pause()
       if (next.currentTime) next.currentTime = 0

@@ -21,7 +21,7 @@ useParticles(canvas, { reducedMotion: useReducedMotion() })
   height: 100vh;
   /* Read by `useParticles` as the triangles' fill colour. */
   color: var(--oc-yellow);
-  background-color: var(--oc-white);
+  background-color: var(--oc-page);
   pointer-events: none;
 }
 </style>

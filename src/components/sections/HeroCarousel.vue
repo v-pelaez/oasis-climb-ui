@@ -16,8 +16,7 @@ const autoplay = computed(() => !reducedMotion.value)
 
 const { index, nextIndex, progress, paused, toggle } = useCarousel({
   count: videos.length,
-  getActiveVideo: () => stage.value?.querySelector<HTMLVideoElement>('video[data-active]'),
-  getNextVideo: () => stage.value?.querySelector<HTMLVideoElement>('video:not([data-active])'),
+  getVideo: (i) => stage.value?.querySelector<HTMLVideoElement>(`video[data-slide="${i}"]`),
   autoplay,
 })
 
@@ -43,6 +42,7 @@ const current = computed(() => videos[index.value])
           :key="slide.id"
           class="hero-video"
           :class="{ 'is-active': slide.active }"
+          :data-slide="slide.id"
           :data-active="slide.active ? '' : undefined"
           preload="auto"
           muted

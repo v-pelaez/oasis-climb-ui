@@ -204,7 +204,7 @@ function onNavigate(href: string) {
   padding: 6px var(--oc-space-3);
   border: 1px solid var(--oc-line);
   border-radius: var(--oc-radius);
-  background: var(--oc-white);
+  background: var(--oc-surface);
   color: var(--oc-text);
   font-size: 15px;
 

@@ -38,7 +38,7 @@ withDefaults(
   padding: var(--oc-space-3) var(--oc-space-4);
   border-top: 3px solid var(--oc-yellow);
   border-radius: var(--oc-radius);
-  background: var(--oc-white);
+  background: var(--oc-surface);
   color: var(--oc-text);
   box-shadow: var(--oc-shadow-lg);
   font-family: var(--oc-font-sans);
@@ -56,6 +56,6 @@ withDefaults(
 }
 
 .not-available-arrow {
-  fill: var(--oc-white);
+  fill: var(--oc-surface);
 }
 </style>

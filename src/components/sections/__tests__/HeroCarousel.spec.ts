@@ -96,6 +96,26 @@ describe('HeroCarousel', () => {
     expect(phrase()).toBe(heroVideos[0]!.phrase)
   })
 
+  it('plays the next video while the finished one is still fading out', async () => {
+    // Real transitions: the leaving <video> stays in the DOM, with its old attributes, for a frame or more.
+    wrapper = mount(HeroCarousel, {
+      global: { stubs: { transition: false, 'transition-group': false } },
+    })
+    await flushPromises()
+    const first = activeVideo()
+
+    play.mockClear()
+    pause.mockClear()
+    first.dispatchEvent(new Event('ended'))
+    await flushPromises()
+
+    const second = wrapper.findAll('video').find(
+      (v) => v.find('source').attributes('src') === heroVideos[1]!.src,
+    )!.element
+    expect(play.mock.contexts).toEqual([second])
+    expect(pause.mock.contexts).not.toContain(second)
+  })
+
   it('mounts only the active and the next video, without loop and with a real webm type', async () => {
     wrapper = mount(HeroCarousel)
     await flushPromises()

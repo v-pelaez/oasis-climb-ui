@@ -116,7 +116,7 @@ const pages = [1, 2, 3]
   overflow: hidden;
   border: 1px solid rgb(0 0 0 / 17.5%);
   border-radius: var(--oc-radius);
-  background: var(--oc-white);
+  background: var(--oc-surface);
   color: var(--oc-text);
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 7.5%);
   cursor: pointer;
