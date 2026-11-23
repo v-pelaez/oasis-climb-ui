@@ -23,7 +23,7 @@ export interface HeroVideo {
 
 /** Media of the about section; its copy lives under `about.*` in the locale files. */
 export interface AboutContent {
-  image: { src: string }
+  image: { src: string; width: number; height: number }
   video: {
     src: string
     /** MIME type of `src`; must match the real file. */

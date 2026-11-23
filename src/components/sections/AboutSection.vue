@@ -10,7 +10,15 @@ const { t } = useI18n()
   <div class="about-tagline">
     <p class="about-tagline-text">{{ t('about.tagline') }}</p>
   </div>
-  <img class="about-cover" :src="about.image.src" :alt="t('about.imageAlt')" loading="lazy" />
+  <img
+    class="about-cover"
+    :src="about.image.src"
+    :width="about.image.width"
+    :height="about.image.height"
+    :alt="t('about.imageAlt')"
+    loading="lazy"
+    decoding="async"
+  />
 
   <section id="about-us" class="about" aria-labelledby="about-us-title">
     <SectionBanner id="about-us-title" :title="t('about.title')" />

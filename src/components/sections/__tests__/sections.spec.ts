@@ -39,6 +39,18 @@ describe('NewsSection', () => {
     expect(wrapper.find('#ranking').exists()).toBe(false)
   })
 
+  it('lazy-loads every news image with its intrinsic size', () => {
+    const wrapper = mount(NewsSection)
+    const images = wrapper.findAll('img.news-card-img')
+    expect(images).toHaveLength(news.length)
+    images.forEach((img, i) => {
+      expect(img.attributes('loading')).toBe('lazy')
+      expect(img.attributes('decoding')).toBe('async')
+      expect(img.attributes('width')).toBe(String(news[i]?.width))
+      expect(img.attributes('height')).toBe(String(news[i]?.height))
+    })
+  })
+
   it('pagination is made of buttons that do not navigate', async () => {
     const wrapper = mount(NewsSection, { attachTo: document.body })
     const before = window.location.href

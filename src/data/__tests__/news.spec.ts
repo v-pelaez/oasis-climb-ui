@@ -18,6 +18,14 @@ describe('news', () => {
     expect(new Set(images).size).toBe(images.length)
   })
 
+  it('gives every image explicit dimensions and a WebP source', () => {
+    for (const item of news) {
+      expect(Number.isInteger(item.width) && item.width > 0 && item.width <= 800).toBe(true)
+      expect(Number.isInteger(item.height) && item.height > 0).toBe(true)
+      expect(item.img).toMatch(/\.webp$/)
+    }
+  })
+
   it('stores dates as past offsets', () => {
     for (const item of news) expect(item.published.value).toBeLessThan(0)
   })

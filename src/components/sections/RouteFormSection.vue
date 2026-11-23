@@ -14,7 +14,7 @@ import SectionBanner from '@/components/ui/SectionBanner.vue'
 import { useRouteForm, type RouteFormField } from '@/composables/useRouteForm'
 import { difficultyOptions, disciplineOptions, seasonOptions } from '@/data/routeForm'
 
-const headerImage = new URL('../../assets/snowmountain.jpg', import.meta.url).href
+const headerImage = new URL('../../assets/snowmountain.webp', import.meta.url).href
 
 const { t } = useI18n()
 const { form, errors, validate, reset } = useRouteForm()
@@ -58,7 +58,15 @@ function returnFocus(event: Event) {
 <template>
   <section class="route-form-section" aria-labelledby="registro-title">
     <p class="route-form-tagline">{{ t('routeForm.tagline') }}</p>
-    <img :src="headerImage" class="route-form-header-image" :alt="t('routeForm.headerImageAlt')" />
+    <img
+      :src="headerImage"
+      class="route-form-header-image"
+      width="1280"
+      height="853"
+      :alt="t('routeForm.headerImageAlt')"
+      loading="lazy"
+      decoding="async"
+    />
 
     <div id="registro" class="route-form-body">
       <SectionBanner id="registro-title" :title="t('routeForm.title')" />
