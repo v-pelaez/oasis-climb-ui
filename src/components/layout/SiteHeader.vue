@@ -3,7 +3,7 @@ import { nextTick, ref, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppIcon from '@/components/ui/AppIcon.vue'
 import LanguageToggle from '@/components/ui/LanguageToggle.vue'
-import NotAvailablePopover from '@/components/ui/NotAvailablePopover.vue'
+import SiteSearch from '@/components/ui/SiteSearch.vue'
 import { useScrollSpy } from '@/composables/useScrollSpy'
 import { navLinks } from '@/data/site'
 import logoUrl from '@/assets/OasisClimb.svg'
@@ -15,7 +15,6 @@ const { t } = useI18n()
 const sectionIds = navLinks.map((link) => link.href.slice(1))
 const { activeId } = useScrollSpy(sectionIds)
 
-const searchQuery = ref('')
 const menuOpen = ref(false)
 const menuButton = useTemplateRef<HTMLButtonElement>('menuButton')
 
@@ -60,21 +59,7 @@ function onNavigate(href: string) {
       </nav>
 
       <div class="site-header-tools">
-        <!-- Placeholder search until RFP-25 (real search). -->
-        <form class="site-search" role="search" @submit.prevent>
-          <input
-            v-model="searchQuery"
-            class="site-search-input"
-            type="search"
-            :placeholder="t('header.searchPlaceholder')"
-            :aria-label="t('header.searchLabel')"
-          />
-          <NotAvailablePopover :message="t('notAvailable.search')" side="bottom">
-            <button type="button" class="site-search-btn" :aria-label="t('header.searchLabel')">
-              <AppIcon name="search" size="18px" />
-            </button>
-          </NotAvailablePopover>
-        </form>
+        <SiteSearch class="site-header-search" variant="bar" />
 
         <LanguageToggle />
 
@@ -92,20 +77,23 @@ function onNavigate(href: string) {
       </div>
     </div>
 
-    <nav v-show="menuOpen" :id="MENU_ID" class="site-menu" :aria-label="t('header.navLabel')">
-      <ul class="site-nav">
-        <li v-for="link in navLinks" :key="link.href" class="site-nav-item">
-          <a
-            class="site-nav-link"
-            :href="link.href"
-            :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
-            @click="onNavigate(link.href)"
-          >
-            {{ t(`nav.${link.key}`) }}
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <div v-show="menuOpen" :id="MENU_ID" class="site-menu">
+      <SiteSearch variant="menu" @select="closeMenu()" />
+      <nav :aria-label="t('header.navLabel')">
+        <ul class="site-nav">
+          <li v-for="link in navLinks" :key="link.href" class="site-nav-item">
+            <a
+              class="site-nav-link"
+              :href="link.href"
+              :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
+              @click="onNavigate(link.href)"
+            >
+              {{ t(`nav.${link.key}`) }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </header>
 </template>
 
@@ -198,40 +186,6 @@ function onNavigate(href: string) {
   margin-left: auto;
 }
 
-.site-search {
-  display: flex;
-  align-items: center;
-  gap: var(--oc-space-2);
-}
-
-.site-search-input {
-  width: 200px;
-  height: 38px;
-  padding: 6px var(--oc-space-3);
-  border: 1px solid var(--oc-line);
-  border-radius: var(--oc-radius);
-  background: var(--oc-surface);
-  color: var(--oc-text);
-  font-size: 15px;
-
-  &::placeholder {
-    color: var(--oc-placeholder);
-  }
-}
-
-.site-search-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 38px;
-  border: 0;
-  border-radius: var(--oc-radius);
-  background: var(--oc-yellow);
-  color: var(--oc-yellow-ink);
-  cursor: pointer;
-}
-
 .site-menu-btn {
   display: inline-flex;
   align-items: center;
@@ -245,7 +199,6 @@ function onNavigate(href: string) {
   cursor: pointer;
 }
 
-.site-search-btn,
 .site-menu-btn,
 .site-nav-link,
 .site-header-logo {
@@ -275,10 +228,10 @@ function onNavigate(href: string) {
   }
 }
 
-// Touch sizes: links fold into the panel, the placeholder search is hidden.
+// Touch sizes: links and search fold into the menu panel.
 @include down(lg) {
   .site-header-nav,
-  .site-search {
+  .site-header-search {
     display: none;
   }
 }

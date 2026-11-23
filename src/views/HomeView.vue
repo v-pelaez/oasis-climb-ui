@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { provide, ref } from 'vue'
 import SiteHeader from '@/components/layout/SiteHeader.vue'
 import SiteFooter from '@/components/layout/SiteFooter.vue'
 import ScrollTop from '@/components/ui/ScrollTop.vue'
@@ -8,6 +9,12 @@ import RouteFormSection from '@/components/sections/RouteFormSection.vue'
 import ParticlesBackground from '@/components/layout/ParticlesBackground.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
 import HeroCarousel from '@/components/sections/HeroCarousel.vue'
+import { RANKING_TAB_KEY } from '@/composables/useSearch'
+import type { RankingId } from '@/types/ranking'
+
+/** Active ranking tab, shared with the header search so a result can open its tab. */
+const rankingTab = ref<RankingId>('dificultad')
+provide(RANKING_TAB_KEY, rankingTab)
 </script>
 
 <template>
@@ -16,7 +23,7 @@ import HeroCarousel from '@/components/sections/HeroCarousel.vue'
     <HeroCarousel />
     <ParticlesBackground />
     <NewsSection />
-    <RankingSection />
+    <RankingSection v-model="rankingTab" />
     <RouteFormSection />
     <AboutSection />
   </main>

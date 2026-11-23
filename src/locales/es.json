@@ -23,9 +23,15 @@
     "register": "Registra tus marcas",
     "about": "Sobre nosotros"
   },
+  "search": {
+    "listLabel": "Resultados de búsqueda",
+    "groups": { "news": "Novedades", "ranking": "Ranking", "section": "Secciones" },
+    "empty": "Sin resultados para «{query}».",
+    "tabs": { "dificultad": "Dificultad", "velocidad": "Velocidad" },
+    "rankingMeta": "{tab} · {metric}"
+  },
   "notAvailable": {
     "title": "Acción no disponible",
-    "search": "La búsqueda no está disponible en este prototipo.",
     "pagination": "La paginación no está disponible en este prototipo.",
     "subscription": "La suscripción no está disponible en este prototipo.",
     "social": "El perfil de {name} no está disponible en este prototipo."

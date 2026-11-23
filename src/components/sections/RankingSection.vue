@@ -6,10 +6,6 @@ import CountryFlag from '@/components/ui/CountryFlag.vue'
 import type { RankingId } from '@/types/ranking'
 import { countryName, formatPoints, rankings } from '@/data/rankings'
 
-/**
- * Active tab. Exposed with `v-model` so other components (e.g. the search)
- * can open a given ranking from outside.
- */
 const { t, locale } = useI18n()
 
 const headers = (id: RankingId) => [
@@ -20,6 +16,10 @@ const headers = (id: RankingId) => [
   t('ranking.headers.points'),
 ]
 
+/**
+ * Active tab. Exposed with `v-model` so `HomeView` can share it and the search
+ * can open the ranking of the climber it jumps to.
+ */
 const activeTab = defineModel<RankingId>({ default: 'dificultad' })
 </script>
 

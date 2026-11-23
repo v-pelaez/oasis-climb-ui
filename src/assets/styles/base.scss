@@ -87,3 +87,26 @@ a {
 .visually-hidden {
   @include visually-hidden;
 }
+
+// Element a search result jumped to: a yellow outline that fades out (~2 s).
+// The class is added and removed by `SiteSearch`.
+.is-search-hit {
+  outline: 3px solid var(--oc-yellow);
+  outline-offset: 2px;
+  animation: oc-search-hit 2s ease-out forwards;
+
+  @include reduced-motion {
+    animation: none;
+  }
+}
+
+@keyframes oc-search-hit {
+  0%,
+  50% {
+    outline-color: var(--oc-yellow);
+  }
+
+  100% {
+    outline-color: transparent;
+  }
+}
