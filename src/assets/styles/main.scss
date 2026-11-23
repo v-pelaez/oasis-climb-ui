@@ -95,28 +95,11 @@ body {
   font-family: 'LemonMilk', sans-serif; // Fuente personalizada
 }
 
-// Imágenes de tarjetas (.card-img-top) con tamaño fijo y recorte para cubrir sin distorsión
-.card-img-top {
-  width: 100%; // Ancho completo
-  height: 250px; // Altura fija
-  object-fit: cover; // Recorta la imagen para llenar el área sin deformar
-}
-
-// Cursor cambia a puntero para todas las tarjetas (indica que son clicables)
-.card {
-  cursor: pointer;
-}
-
 // Imagen de cabecera con tamaño fijo y ajuste en posición y recorte
 .cabecera {
   height: 400px; // Altura fija para la cabecera
   object-fit: cover; // Recortar la imagen para que cubra área
   object-position: center; // Centrar la parte visible de la imagen
-}
-
-// Estilo para paginación: cambiar cursor a puntero para links de paginación
-.page-item .page-link {
-  cursor: pointer;
 }
 
 // cross fade
@@ -176,14 +159,6 @@ body {
   100% {
     opacity: 0;
   }
-}
-
-.card {
-  transition: transform 0.3s;
-}
-.card:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s;
 }
 
 body,
