@@ -14,10 +14,10 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 ## Key Features
 
 - **SPA architecture & routing:** Multi-view client-side navigation structured with Vue Router 4.
-- **Rich media integration:** Interactive video carousel and embedded video sections.
+- **Rich media integration:** Hero of chained videos (each plays to its end, then the next fades in; progress bar from the video's own time, pause button, only the active and next video are loaded) and an embedded video section.
 - **Interactive UI & forms:** Client-side form validation, tooltips, and reusable Bootstrap 5 / CoreUI Vue components.
 - **Data presentation:** Ranking tables with client-side pagination backed by static mock datasets.
-- **Custom visual effects:** Canvas-style animated background and animated SVG elements combined with custom Sass styling.
+- **Custom visual effects:** Canvas animated background (`devicePixelRatio`-aware, static with `prefers-reduced-motion`) and animated SVG elements combined with custom Sass styling.
 
 ## Tech Stack
 

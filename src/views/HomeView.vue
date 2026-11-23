@@ -5,20 +5,20 @@ import ScrollTop from '@/components/ui/ScrollTop.vue'
 import RankingSection from '@/components/sections/RankingSection.vue'
 import NewsSection from '@/components/sections/NewsSection.vue'
 import RouteFormSection from '@/components/sections/RouteFormSection.vue'
-import BackgroundComponent from '@/components/BackgroundComponent.vue'
-import AboutUsComponent from '@/components/AboutUsComponent.vue'
-import VideoCarouselComponent from '@/components/VideoCarouselComponent.vue'
+import ParticlesBackground from '@/components/layout/ParticlesBackground.vue'
+import AboutSection from '@/components/sections/AboutSection.vue'
+import HeroCarousel from '@/components/sections/HeroCarousel.vue'
 </script>
 
 <template>
   <SiteHeader />
   <main id="main" tabindex="-1">
-    <VideoCarouselComponent />
-    <BackgroundComponent />
+    <HeroCarousel />
+    <ParticlesBackground />
     <NewsSection />
     <RankingSection />
     <RouteFormSection />
-    <AboutUsComponent />
+    <AboutSection />
   </main>
   <SiteFooter />
   <ScrollTop />
