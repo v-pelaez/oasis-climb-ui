@@ -34,7 +34,6 @@ describe('NewsSection', () => {
     )
     expect(wrapper.findAll('article.news-card')).toHaveLength(news.length)
     expect(wrapper.find('#ranking').exists()).toBe(false)
-    expect(wrapper.html()).not.toContain('data-bs-')
   })
 
   it('pagination is made of buttons that do not navigate', async () => {
@@ -65,14 +64,16 @@ describe('RankingSection', () => {
 
   const activeRows = () =>
     [...document.querySelectorAll('[role="tabpanel"][data-state="active"] tbody tr')].map(
-      (row) => row.id,
+      (tr) => tr.id,
     )
 
-  it('renders the first ranking with stable row ids', () => {
+  it('renders the first ranking with stable line ids', () => {
     const wrapper = mount(RankingSection, { attachTo: document.body })
     expect(wrapper.attributes('id')).toBe('ranking')
     expect(tab(wrapper, 0).attributes('aria-selected')).toBe('true')
-    expect(activeRows()).toEqual(rankings[0]!.data.map((row) => `ranking-dificultad-${row.rank}`))
+    expect(activeRows()).toEqual(
+      rankings[0]!.data.map((entry) => `ranking-dificultad-${entry.rank}`),
+    )
     expect(wrapper.find('.ranking-badge').text()).toBe(rankings[0]!.data[0]!.metric)
     wrapper.unmount()
   })

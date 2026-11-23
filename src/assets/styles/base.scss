@@ -1,5 +1,5 @@
-// Minimal reset and base typography. Loaded right after `tokens.scss`,
-// before Bootstrap (which is still installed until RFP-22).
+// Minimal reset and base typography (the only global styles). Loaded right
+// after `tokens.scss`.
 @use 'mixins' as *;
 
 // LemonMilk: only the face the banner titles use.
@@ -51,6 +51,15 @@ img,
 svg,
 video {
   max-width: 100%;
+}
+
+img,
+svg {
+  vertical-align: middle;
+}
+
+small {
+  font-size: 0.875em;
 }
 
 button,

@@ -36,17 +36,21 @@ const activeTab = defineModel<RankingId>({ default: 'dificultad' })
               </tr>
             </thead>
             <tbody>
-              <tr v-for="row in tab.data" :id="`ranking-${tab.id}-${row.rank}`" :key="row.rank">
-                <td class="ranking-rank">{{ row.rank }}</td>
-                <td>{{ row.name }}</td>
+              <tr
+                v-for="entry in tab.data"
+                :id="`ranking-${tab.id}-${entry.rank}`"
+                :key="entry.rank"
+              >
+                <td class="ranking-rank">{{ entry.rank }}</td>
+                <td>{{ entry.name }}</td>
                 <td>
-                  <span aria-hidden="true">{{ countryFlag(row.country) }}</span>
-                  {{ countryName(row.country) ?? row.country }}
+                  <span aria-hidden="true">{{ countryFlag(entry.country) }}</span>
+                  {{ countryName(entry.country) ?? entry.country }}
                 </td>
                 <td>
-                  <span class="ranking-badge">{{ row.metric }}</span>
+                  <span class="ranking-badge">{{ entry.metric }}</span>
                 </td>
-                <td>{{ row.points }}</td>
+                <td>{{ entry.points }}</td>
               </tr>
             </tbody>
           </table>
