@@ -55,6 +55,33 @@ peso total transferido 14 907 KiB.
 > Nota: una sola ejecución en local; Lighthouse varía unos puntos entre ejecuciones. Para comparar, repetir en la misma
 > máquina y, si hace falta, tomar la mediana de 3 ejecuciones.
 
+## Medios (RFP-23)
+
+Peso (bytes) de cada fichero de `src/assets` antes y después de optimizar. Los originales ya no están en el repo.
+
+| Fichero | Antes | Después | Notas |
+| --- | ---: | ---: | --- |
+| `aspira.webm` | 7 049 317 | 2 803 479 | VP8 1080p -> VP9 **720p**, crf 35, sin audio |
+| `construye.webm` | 6 814 732 | 1 611 533 | VP8 -> VP9 1080p, crf 34, sin audio |
+| `logra.webm` | 5 551 473 | 976 863 | VP8 -> VP9 1080p, crf 34, audio eliminado |
+| `aboutus.webm` | 28 010 618 | 7 794 017 | VP8 -> VP9 1080p, crf 38, audio Opus 64 kbps |
+| `rappel.jpg` -> `rappel.webp` | 2 372 247 | 184 662 | 1920x1280 (la fuente era 6720x4480) |
+| `snowmountain.jpg` -> `.webp` | 277 644 | 96 532 | 1280x853 |
+| `videoposter.png` -> `.webp` | 3 141 757 | 128 484 | 1280x720 |
+| `thumbnails/climbing-2609319` | 824 559 | 86 666 | 800x439 |
+| `thumbnails/free-climbing-4196577` | 672 667 | 93 508 | 800x551 |
+| `thumbnails/mountain-climbing-1840220` | 127 642 | 58 494 | 800x533 |
+| `thumbnails/mountaineer-396533` | 47 839 | 10 282 | 800x480 |
+| `thumbnails/snow-8033482` | 403 960 | 21 226 | 800x534 |
+| `thumbnails/mountain-8488489.jpg` | 108 239 | (eliminado) | no se usaba en ningún sitio |
+| **Total** | **55 402 694** | **13 865 746** | -75 % |
+
+- Todos los vídeos conservan duración y 25 fps, en `yuv420p` y con `<source type="video/webm">`.
+- `aspira.webm` no cabe en 3 MB a 1080p con crf <= 38 (4,4 MB), así que se baja a 720p (crf 35); `construye` y `logra` caben en 1080p con crf 34.
+- `aboutus.webm` a crf 34-36 pesa 8,4-9,4 MB (sin audio), por eso crf 38.
+- Comandos exactos: `scripts/encode-videos.sh <carpeta-con-originales>` (ffmpeg, VP9 en dos pasadas) y `node scripts/optimize-images.mjs <carpeta-con-originales>` (`sharp`, WebP calidad 80, miniaturas <= 800 px y cabeceras <= 1920 px).
+- Las imágenes llevan `width`/`height`; las que quedan bajo el pliegue (noticias, portada de «Sobre nosotros», cabecera del formulario) llevan `loading="lazy"` y `decoding="async"`.
+
 ## Método (repetir igual en el ticket final)
 
 Todo desde la raíz del repo, en Git Bash, con el árbol de trabajo limpio en el commit a medir.
