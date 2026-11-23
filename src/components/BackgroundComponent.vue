@@ -1,26 +1,19 @@
-<style scoped>
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1; /* Esto lo pone detrás */
-  background-color: white; /* El fondo del canvas es blanco */
-}
-
-/* IMPORTANTE que el body y main sean transparentes */
-</style>
 <template><canvas ref="fondoCanvas"></canvas></template>
 
-<script setup>
+<script setup lang="ts">
 import { useTemplateRef, onMounted, onUnmounted } from 'vue'
 
-const canvas = useTemplateRef('fondoCanvas')
+const canvas = useTemplateRef<HTMLCanvasElement>('fondoCanvas')
 
 onMounted(() => {
-  const ctx = canvas.value.getContext('2d')
-  let triangulos = []
+  const el = canvas.value
+  const context = el?.getContext('2d')
+  if (!el || !context) return
+  // Non-nullable aliases so the nested functions and class keep the narrowed types
+  const canvasEl: HTMLCanvasElement = el
+  const ctx: CanvasRenderingContext2D = context
+
+  let triangulos: Triangulo[] = []
   let lastScrollY = window.scrollY
   let scrollVelocity = 0
 
@@ -31,6 +24,15 @@ onMounted(() => {
   const SENSIBILIDAD_SCROLL = 3 // Controla qué tanto reaccionan al scroll
 
   class Triangulo {
+    x = 0
+    y = 0
+    size = 0
+    velX = 0
+    velY = 0
+    alpha = 0
+    frecuencia = 0
+    parallaxFactor = 0
+
     constructor() {
       this.init()
     }
@@ -47,20 +49,20 @@ onMounted(() => {
       this.parallaxFactor = Math.random() * SENSIBILIDAD_SCROLL
     }
 
-    actualizar(velocity) {
+    actualizar(velocity: number) {
       this.x += this.velX
       // Sumamos la velocidad del scroll multiplicada por su factor de profundidad
       this.y += this.velY - velocity * this.parallaxFactor
 
       // Reposicionamiento infinito
-      if (this.x < -10) this.x = canvas.value.width + 10
-      if (this.x > canvas.value.width + 10) this.x = -10
-      if (this.y < -20) this.y = canvas.height + 20
-      if (this.y > canvas.height + 20) this.y = -20
+      if (this.x < -10) this.x = canvasEl.width + 10
+      if (this.x > canvasEl.width + 10) this.x = -10
+      if (this.y < -20) this.y = canvasEl.height + 20
+      if (this.y > canvasEl.height + 20) this.y = -20
     }
 
     dibujar() {
-      let brillar = this.alpha + Math.sin(Date.now() * this.frecuencia) * 0.05
+      const brillar = this.alpha + Math.sin(Date.now() * this.frecuencia) * 0.05
       ctx.save()
       ctx.globalAlpha = Math.max(0.02, brillar)
       ctx.fillStyle = COLOR_HEX
@@ -81,8 +83,8 @@ onMounted(() => {
   }
 
   function configurar() {
-    canvas.value.width = window.innerWidth
-    canvas.value.height = window.innerHeight
+    canvasEl.width = window.innerWidth
+    canvasEl.height = window.innerHeight
     triangulos = []
     for (let i = 0; i < CANTIDAD; i++) {
       triangulos.push(new Triangulo())
@@ -90,7 +92,7 @@ onMounted(() => {
   }
 
   function animar() {
-    ctx.clearRect(0, 0, canvas.value.width, canvas.value.height)
+    ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
     triangulos.forEach((t) => {
       t.actualizar(scrollVelocity)
@@ -116,3 +118,17 @@ onMounted(() => {
   })
 })
 </script>
+
+<style scoped>
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Esto lo pone detrás */
+  background-color: white; /* El fondo del canvas es blanco */
+}
+
+/* IMPORTANTE que el body y main sean transparentes */
+</style>

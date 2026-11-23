@@ -15,50 +15,48 @@
       <form 
         class="row g-3" 
         :class="{ 'was-validated': wasValidated }" 
-        @submit.prevent="handleSubmit" 
-        novalidate
+        novalidate 
+        @submit.prevent="handleSubmit"
       >
         <h5 class="col-12 mb-4 text-uppercase fw-bold border-bottom border-primary pb-2">Datos Técnicos de la Ruta</h5>
 
         <div class="col-md-6">
           <div class="mb-3">
             <label for="routeName" class="form-label">Nombre de la vía o ruta</label>
-            <input v-model="formData.routeName" type="text" class="form-control rounded-0" id="routeName" placeholder="Ej: La arista de los vientos" required />
+            <input id="routeName" v-model="formData.routeName" type="text" class="form-control rounded-0" placeholder="Ej: La arista de los vientos" required />
             <div class="invalid-feedback">El nombre es obligatorio.</div>
           </div>
 
           <div class="mb-3">
             <label for="location" class="form-label">Macizo / Zona / Sector</label>
-            <input v-model="formData.location" type="text" class="form-control rounded-0" id="location" placeholder="Ej: Picos de Europa - Naranjo de Bulnes" required />
+            <input id="location" v-model="formData.location" type="text" class="form-control rounded-0" placeholder="Ej: Picos de Europa - Naranjo de Bulnes" required />
             <div class="invalid-feedback">Indica la zona geográfica.</div>
           </div>
 
           <div class="row">
             <div class="col-6 mb-3">
               <label for="markerType" class="form-label">Disciplina</label>
-              <select v-model="formData.markerType" class="form-select rounded-0" id="markerType" required>
+              <select id="markerType" v-model="formData.markerType" class="form-select rounded-0" required>
                 <option value="" disabled>Tipo...</option>
-                <option value="senderismo">Senderismo</option>
-                <option value="ferrata">Vía Ferrata</option>
-                <option value="escalada">Escalada</option>
-                <option value="alpinismo">Alpinismo</option>
+                <option v-for="option in disciplineOptions" :key="option.value" :value="option.value">
+                  {{ option.label }}
+                </option>
               </select>
             </div>
             <div class="col-6 mb-3">
               <label for="difficulty" class="form-label">Dificultad</label>
-              <select v-model="formData.difficulty" class="form-select rounded-0" id="difficulty" required>
+              <select id="difficulty" v-model="formData.difficulty" class="form-select rounded-0" required>
                 <option value="" disabled>Grado...</option>
-                <option value="baja">Baja (K1 / II)</option>
-                <option value="media">Media (K3 / V)</option>
-                <option value="alta">Alta (K5 / 6b+)</option>
-                <option value="extrema">Extrema (K6 / 7+)</option>
+                <option v-for="option in difficultyOptions" :key="option.value" :value="option.value">
+                  {{ option.label }}
+                </option>
               </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="gpsLink" class="form-label">Coordenadas o Enlace Track (GPX)</label>
-            <input v-model="formData.gpsLink" type="url" class="form-control rounded-0" id="gpsLink" placeholder="https://wikiloc.com/..." />
+            <input id="gpsLink" v-model="formData.gpsLink" type="url" class="form-control rounded-0" placeholder="https://wikiloc.com/..." />
           </div>
         </div>
 
@@ -66,44 +64,43 @@
           <div class="row">
             <div class="col-6 mb-3">
               <label for="length" class="form-label">Distancia / Largos</label>
-              <input v-model="formData.length" type="text" class="form-control rounded-0" id="length" placeholder="Ej: 12km o 4 largos" required />
+              <input id="length" v-model="formData.length" type="text" class="form-control rounded-0" placeholder="Ej: 12km o 4 largos" required />
             </div>
             <div class="col-6 mb-3">
               <label for="elevation" class="form-label">Desnivel (+m)</label>
-              <input v-model="formData.elevation" type="number" class="form-control rounded-0" id="elevation" placeholder="Ej: 850" required />
+              <input id="elevation" v-model="formData.elevation" type="number" class="form-control rounded-0" placeholder="Ej: 850" required />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="duration" class="form-label">Tiempo estimado (h)</label>
-            <input v-model="formData.duration" type="number" class="form-control rounded-0" id="duration" min="0" step="0.5" required />
+            <input id="duration" v-model="formData.duration" type="number" class="form-control rounded-0" min="0" step="0.5" required />
           </div>
 
           <div class="mb-3">
             <label for="season" class="form-label">Mejor Época</label>
-            <select v-model="formData.season" class="form-select rounded-0" id="season" required>
+            <select id="season" v-model="formData.season" class="form-select rounded-0" required>
               <option value="" disabled>Selecciona...</option>
-              <option value="primavera">Primavera - Otoño</option>
-              <option value="verano">Verano (Alta Montaña)</option>
-              <option value="invierno">Invierno (Invernal)</option>
-              <option value="todo_el_anyo">Todo el año</option>
+              <option v-for="option in seasonOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
             </select>
           </div>
 
           <div class="mb-3">
             <label for="equipment" class="form-label">Material obligatorio</label>
-            <input v-model="formData.equipment" type="text" class="form-control rounded-0" id="equipment" placeholder="Ej: Cuerda 60m, Friends, Casco" required />
+            <input id="equipment" v-model="formData.equipment" type="text" class="form-control rounded-0" placeholder="Ej: Cuerda 60m, Friends, Casco" required />
           </div>
         </div>
 
         <div class="col-12 mb-3">
           <label for="description" class="form-label">Descripción del itinerario y marcas</label>
-          <textarea v-model="formData.description" class="form-control rounded-0" id="description" rows="3" placeholder="Describe los hitos, marcas de pintura o químicos..." required></textarea>
+          <textarea id="description" v-model="formData.description" class="form-control rounded-0" rows="3" placeholder="Describe los hitos, marcas de pintura o químicos..." required></textarea>
         </div>
 
         <div class="col-12 mb-3">
           <div class="form-check">
-            <input v-model="formData.terms" type="checkbox" class="form-check-input rounded-0" id="termsCheck" required />
+            <input id="termsCheck" v-model="formData.terms" type="checkbox" class="form-check-input rounded-0" required />
             <label class="form-check-label" for="termsCheck small">Confirmo que la información técnica es veraz y apta para la seguridad de terceros.</label>
           </div>
         </div>
@@ -117,7 +114,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="successModal" tabindex="-1" ref="modalElement" aria-hidden="true">
+  <div id="successModal" ref="modalElement" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content bg-dark text-white  rounded-0 shadow-lg">
         <div class="modal-header border-bottom  rounded-0">
@@ -137,53 +134,45 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { Modal } from 'bootstrap'
+import type { RouteFormData } from '@/types/routeForm'
+import {
+  difficultyOptions,
+  disciplineOptions,
+  emptyRouteForm,
+  seasonOptions,
+} from '@/data/routeForm'
 
 const imgCabecera = new URL('../assets/snowmountain.jpg', import.meta.url).href
 
 const wasValidated = ref(false)
-const modalElement = ref(null)
+const modalElement = ref<HTMLDivElement | null>(null)
 const lastRegisteredRoute = ref('')
-let modalInstance = null
+let modalInstance: Modal | null = null
 
-const initialState = {
-  routeName: '',
-  location: '',
-  markerType: '',
-  difficulty: '',
-  gpsLink: '',
-  length: '',
-  elevation: null,
-  duration: null,
-  season: '',
-  equipment: '',
-  description: '',
-  terms: false
-}
-
-const formData = reactive({ ...initialState })
+const formData = reactive<RouteFormData>({ ...emptyRouteForm })
 
 onMounted(() => {
-  modalInstance = new Modal(modalElement.value)
+  if (modalElement.value) modalInstance = new Modal(modalElement.value)
 })
 
-const handleSubmit = (event) => {
-  const form = event.target
+const handleSubmit = (event: Event) => {
+  const form = event.target as HTMLFormElement
   wasValidated.value = true
-  
+
   if (!form.checkValidity()) {
     return
   }
 
   lastRegisteredRoute.value = formData.routeName
-  modalInstance.show()
+  modalInstance?.show()
   resetForm()
 }
 
 const resetForm = () => {
-  Object.assign(formData, initialState)
+  Object.assign(formData, emptyRouteForm)
   wasValidated.value = false
 }
 </script>

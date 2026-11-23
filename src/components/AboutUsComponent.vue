@@ -42,7 +42,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // Importación de imagen
 const imgCabecera = new URL('../assets/rappel.jpg', import.meta.url).href
 
