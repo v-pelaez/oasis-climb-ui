@@ -23,7 +23,7 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 
 - **Framework & Build:** Vue 3 (`^3.5.26`) · Vue Router 4 (`^4.6.4`) · Vite 7 (`^7.3.1`)
 - **Language & Type Checking:** TypeScript (`~5.9.3`) · `vue-tsc`
-- **UI & Styling:** Bootstrap 5 · CoreUI Vue (`@coreui/vue`, `@coreui/icons-vue`) · Sass
+- **UI & Styling:** Sass design tokens and own layout components · Reka UI (accessible primitives) · self-hosted Outfit and LemonMilk fonts · Bootstrap 5 / CoreUI Vue (legacy sections, being phased out)
 - **Code Quality:** ESLint 9 · Prettier 3 · Vitest (`@vue/test-utils`, jsdom) · GitHub Actions CI
 
 ## Local Development
