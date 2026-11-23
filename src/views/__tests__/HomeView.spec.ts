@@ -6,6 +6,8 @@ import { news } from '@/data/news'
 beforeAll(() => {
   // jsdom has no canvas, IntersectionObserver or media playback
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null)
+  vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue()
+  vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {})
   vi.stubGlobal(
     'IntersectionObserver',
     class {

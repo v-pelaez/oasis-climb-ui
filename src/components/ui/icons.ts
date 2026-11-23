@@ -19,6 +19,8 @@ export const icons = {
   menu: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M4 7h16M4 12h16M4 17h16'] },
   close: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M6 6l12 12M18 6 6 18'] },
   'arrow-up': { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M12 19V5', 'm5 12 7-7 7 7'] },
+  pause: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M9 5v14', 'M15 5v14'] },
+  play: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M7 5v14l12-7Z'] },
   instagram: {
     viewBox: '0 0 32 32',
     kind: 'fill',
