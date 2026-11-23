@@ -9,9 +9,9 @@ export const navLinks: NavLink[] = [
 ]
 
 export const socialLinks: SocialLink[] = [
-  { name: 'Instagram', url: '', icon: 'fab fa-instagram' },
-  { name: 'Facebook', url: '', icon: 'fab fa-facebook-f' },
-  { name: 'Twitter', url: '', icon: 'fab fa-x-twitter' },
+  { name: 'Instagram', url: '', icon: 'instagram' },
+  { name: 'Facebook', url: '', icon: 'facebook' },
+  { name: 'Twitter', url: '', icon: 'x' },
 ]
 
 export const heroVideos: HeroVideo[] = [

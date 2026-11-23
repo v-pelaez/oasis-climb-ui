@@ -1,0 +1,63 @@
+// Design tokens: the only place where raw brand values live.
+// Components read them as CSS custom properties (`var(--oc-*)`).
+// Breakpoints are also mirrored as SCSS variables in `mixins.scss`,
+// because custom properties cannot be used inside media queries.
+
+:root {
+  // Colours (style guide, "Paleta de colores" and "Colores de texto")
+  --oc-yellow: #f8c52d;
+  --oc-yellow-ink: #1a1a1a; // text on yellow
+  --oc-dark: #212529; // header and footer background
+  --oc-dark-2: #2b3035;
+  --oc-line: #495057; // borders on dark
+  --oc-fg: #f0f0f0; // text on dark
+  --oc-muted: rgb(255 255 255 / 55%); // secondary text on dark
+  --oc-white: #fff;
+  --oc-black: #000;
+  --oc-page: #f8f9fa; // light page background
+  --oc-text: #212529; // body text on light
+  --oc-text-muted: #807c6b; // secondary text on light
+  --oc-placeholder: #6c757d;
+  --oc-gray-300: #d1d1d1;
+
+  // Typography
+  --oc-font-sans: 'Outfit Variable', 'Outfit', system-ui, -apple-system, 'Segoe UI', roboto,
+    sans-serif;
+  --oc-font-display: 'LemonMilk', var(--oc-font-sans);
+  --oc-text-xs: 0.75rem;
+  --oc-text-sm: 0.875rem;
+  --oc-text-base: 1rem;
+  --oc-text-lg: 1.2rem; // menus and sections
+  --oc-text-xl: 1.5rem;
+  --oc-text-display: clamp(2.25rem, 6vw, 4rem); // banner titles: 36px to 64px
+  --oc-leading: 1.5;
+  --oc-leading-tight: 1.2;
+
+  // Spacing (4 px scale)
+  --oc-space-1: 0.25rem;
+  --oc-space-2: 0.5rem;
+  --oc-space-3: 0.75rem;
+  --oc-space-4: 1rem;
+  --oc-space-5: 1.5rem;
+  --oc-space-6: 2rem;
+  --oc-space-7: 3rem;
+
+  // Shape and elevation
+  --oc-radius: 2px;
+  --oc-shadow: 0 1px 2px rgb(0 0 0 / 10%), 0 4px 16px rgb(0 0 0 / 12%);
+  --oc-shadow-lg: 0 8px 24px rgb(0 0 0 / 30%);
+  --oc-focus-ring: 2px solid var(--oc-yellow);
+
+  // Layout
+  --oc-header-height: 76px;
+  --oc-tap-target: 44px;
+  --oc-z-header: 1030;
+  --oc-z-popover: 1070;
+  --oc-z-scroll-top: 1000;
+
+  // Breakpoints (informative; use the mixins in `mixins.scss` for media queries)
+  --oc-bp-sm: 576px;
+  --oc-bp-md: 768px;
+  --oc-bp-lg: 992px;
+  --oc-bp-xl: 1200px;
+}

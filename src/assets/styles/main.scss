@@ -6,15 +6,11 @@ $form-invalid-color: #fd9d9d; // Color para formularios inválidos (rojo claro)
 $form-valid-color: rgb(145, 253, 145); // Color para formularios válidos (verde claro)
 $border-radius: 0.1rem; // Radio de borde muy pequeño para bordes ligeramente redondeados
 
-// Definición de fuente personalizada 'LemonMilk' usando @font-face
-@font-face {
-  font-family: LemonMilk;
-  src: url('../lemon_milk/LEMONMILK-Regular.otf');
-}
+// LemonMilk (@font-face) y Outfit (@fontsource-variable/outfit) se cargan desde
+// base.scss y main.ts; ya no se piden a Google Fonts.
 
-// Importar Bootstrap y fuente externa de Google Fonts 'Outfit'
+// Importar Bootstrap (se retira en RFP-22)
 @import '../../../node_modules/bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 // Estilos para enlaces: quitar subrayado predeterminado
 a {
@@ -23,7 +19,7 @@ a {
 
 // Estilos generales para el cuerpo del documento
 body {
-  font-family: 'Outfit', sans-serif; // Uso de la fuente 'Outfit' para todo el texto
+  font-family: var(--oc-font-sans); // Outfit autoalojada (tokens.scss)
   background-color: #f8f9fa; // Fondo claro general
   color: #212529; // Color oscuro para el texto principal
 }

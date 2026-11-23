@@ -1,0 +1,80 @@
+// Minimal reset and base typography. Loaded right after `tokens.scss`,
+// before Bootstrap (which is still installed until RFP-22).
+@use 'mixins' as *;
+
+// LemonMilk: only the face the banner titles use.
+@font-face {
+  font-family: LemonMilk;
+  src: url('../lemon_milk/LEMONMILK-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--oc-font-sans);
+  font-size: var(--oc-text-base);
+  line-height: var(--oc-leading);
+  color: var(--oc-text);
+  background-color: var(--oc-page);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  line-height: var(--oc-leading-tight);
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: var(--oc-focus-ring);
+  outline-offset: 2px;
+}
+
+// Sections land below the sticky header when reached through an anchor.
+[id] {
+  scroll-margin-top: var(--oc-header-height);
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
