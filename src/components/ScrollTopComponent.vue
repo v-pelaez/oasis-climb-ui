@@ -1,29 +1,29 @@
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
 
 // Estado para controlar la visibilidad de la flecha
-const isVisible = ref(false);
+const isVisible = ref(false)
 
 // Función para mostrar/ocultar el botón según el scroll
 const handleScroll = () => {
-  isVisible.value = window.scrollY > 300; // Aparece tras bajar 300px
-};
+  isVisible.value = window.scrollY > 300 // Aparece tras bajar 300px
+}
 
 // Función para subir con suavidad
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth' // Desplazamiento fluido
-  });
-};
+    behavior: 'smooth', // Desplazamiento fluido
+  })
+}
 
-onMounted(() => window.addEventListener('scroll', handleScroll));
-onUnmounted(() => window.removeEventListener('scroll', handleScroll));
+onMounted(() => window.addEventListener('scroll', handleScroll))
+onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 </script>
 
 <template>
   <Transition name="fade">
-    <button v-if="isVisible" @click="scrollToTop" class="scroll-top-btn" aria-label="Volver arriba">
+    <button v-if="isVisible" class="scroll-top-btn" aria-label="Volver arriba" @click="scrollToTop">
       <!-- Icono de flecha -->
       <span class="arrow">↑</span>
     </button>

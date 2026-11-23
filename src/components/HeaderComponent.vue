@@ -19,7 +19,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li v-for="link in navLinks" :key="link.text" class="nav-item">
             <a
@@ -32,7 +32,7 @@
           </li>
         </ul>
 
-        <form class="nav-item d-none d-md-flex flex-nowrap" @submit.prevent role="search">
+        <form class="nav-item d-none d-md-flex flex-nowrap" role="search" @submit.prevent>
           <input
             v-model="searchQuery"
             class="form-control me-2"
@@ -47,7 +47,7 @@
             :trigger="['hover', 'focus']"
           >
             <template #toggler="{ id, on }">
-              <button v-on="on" :aria-describedby="id" type="button" class="btn btn-primary">
+              <button :aria-describedby="id" type="button" class="btn btn-primary" v-on="on">
                 <CIcon :icon="cilSearch" />
               </button>
             </template>
@@ -58,26 +58,20 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { CPopover } from '@coreui/vue'
 import { CIcon } from '@coreui/icons-vue'
 import { cilSearch } from '@coreui/icons'
+import { navLinks } from '@/data/site'
 
 // 1. Estado para el buscador y la sección activa
 const searchQuery = ref('')
 const activeSection = ref('novedades') // Por defecto la primera
-const popoverBtn = ref(null)
-
-const navLinks = [
-  { text: 'Novedades', href: '#novedades' },
-  { text: 'Ranking', href: '#ranking' },
-  { text: 'Registra tus marcas', href: '#registro' },
-  { text: 'Sobre Nosotros', href: '#about-us' },
-]
+const popoverBtn = ref<HTMLElement | null>(null)
 
 // 3. Lógica de ScrollSpy (Intersection Observer)
-let observer = null
+let observer: IntersectionObserver | null = null
 
 onMounted(() => {
   // Inicialización de Popover de Bootstrap
@@ -86,13 +80,13 @@ onMounted(() => {
   }
 
   // Configuración del observador
-  const observerOptions = {
+  const observerOptions: IntersectionObserverInit = {
     root: null,
     rootMargin: '-20% 0px -70% 0px', // Margen para detectar la sección en la parte superior
     threshold: 0,
   }
 
-  observer = new IntersectionObserver((entries) => {
+  const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       // Si la sección entra en el "foco" de la pantalla
       if (entry.isIntersecting) {
@@ -100,12 +94,13 @@ onMounted(() => {
       }
     })
   }, observerOptions)
+  observer = sectionObserver
 
   // Decimos al observador que vigile cada ID que definimos en los links
   navLinks.forEach((link) => {
     const id = link.href.replace('#', '')
     const element = document.getElementById(id)
-    if (element) observer.observe(element)
+    if (element) sectionObserver.observe(element)
   })
 })
 

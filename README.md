@@ -24,13 +24,13 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 - **Framework & Build:** Vue 3 (`^3.5.26`) · Vue Router 4 (`^4.6.4`) · Vite 7 (`^7.3.1`)
 - **Language & Type Checking:** TypeScript (`~5.9.3`) · `vue-tsc`
 - **UI & Styling:** Bootstrap 5 · CoreUI Vue (`@coreui/vue`, `@coreui/icons-vue`) · Sass
-- **Code Quality:** ESLint 9 · Prettier 3
+- **Code Quality:** ESLint 9 · Prettier 3 · Vitest (`@vue/test-utils`, jsdom) · GitHub Actions CI
 
 ## Local Development
 
 ### Prerequisites
 
-- Node.js `^20.19.0` or `>=22.12.0`
+- Node.js `^22.12.0` or `>=24` (Node LTS recommended; Vitest needs it)
 - npm
 
 ### Setup
@@ -38,7 +38,7 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 ```bash
 git clone https://github.com/v-pelaez/oasis-climb-ui.git
 cd oasis-climb-ui
-npm install
+npm ci
 ```
 
 ### Scripts
@@ -50,4 +50,6 @@ npm install
 | `npm run build` | Type-check and build the application for production |
 | `npm run preview` | Locally preview the production build |
 | `npm run lint` | Lint and auto-fix files with ESLint |
+| `npm run lint:check` | Lint without fixing; fails on any warning (used in CI) |
+| `npm run test` | Run the Vitest suite once (`npx vitest run <path>` for a subset) |
 | `npm run format` | Format source files in `src/` with Prettier |

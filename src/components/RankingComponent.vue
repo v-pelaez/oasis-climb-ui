@@ -5,22 +5,22 @@
     </div>
 
     <div class="container my-4">
-      <ul class="nav nav-tabs" id="rankingTabs" role="tablist">
+      <ul id="rankingTabs" class="nav nav-tabs" role="tablist">
         <li v-for="tab in rankings" :key="tab.id" class="nav-item" role="presentation">
           <button
             class="nav-link"
             :class="{ active: activeTab === tab.id }"
-            @click="activeTab = tab.id"
             type="button"
             role="tab"
             :aria-selected="activeTab === tab.id"
+            @click="activeTab = tab.id"
           >
             {{ tab.title }}
           </button>
         </li>
       </ul>
 
-      <div class="tab-content mt-3" id="rankingTabsContent">
+      <div id="rankingTabsContent" class="tab-content mt-3">
         <div
           v-for="tab in rankings"
           :key="tab.id"
@@ -39,7 +39,7 @@
                 <tr v-for="row in tab.data" :key="row.rank">
                   <td class="fw-bold">{{ row.rank }}</td>
                   <td>{{ row.name }}</td>
-                  <td>{{ row.country }}</td>
+                  <td>{{ countryFlag(row.country) }} {{ countryName(row.country) }}</td>
                   <td >
                     <span class="badge bg-primary text-black">{{ row.metric }}</span>
                   </td>
@@ -54,48 +54,13 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
+import type { RankingId } from '@/types/ranking'
+import { countryFlag, countryName, rankings } from '@/data/rankings'
 
 // Estado para controlar la pestaña activa (por defecto la primera)
-const activeTab = ref('dificultad')
-
-const rankings = ref([
-  {
-    id: 'dificultad',
-    title: 'Ranking de dificultad',
-    headers: ['#', 'Escalador', 'País', 'Dificultad Máxima', 'Puntos'],
-    data: [
-      { rank: 1, name: 'Alberto Ginés', country: '🇪🇸 España', metric: '9a+', points: 4485 },
-      { rank: 2, name: 'Jan Novak', country: '🇨🇿 República Checa', metric: '9a', points: 4200 },
-      { rank: 3, name: 'Li Wei', country: '🇨🇳 China', metric: '8c+', points: 4150 },
-      { rank: 4, name: 'Thomas Berger', country: '🇦🇹 Austria', metric: '8c', points: 4100 },
-      { rank: 5, name: 'Satone Yoshida', country: '🇯🇵 Japón', metric: '9a', points: 4130 },
-      { rank: 6, name: 'Elena Rossi', country: '🇮🇹 Italia', metric: '8c+', points: 3900 },
-      { rank: 7, name: 'Ivan Petrov', country: '🇧🇬 Bulgaria', metric: '8c', points: 3800 },
-      { rank: 8, name: 'Simona Kolarova', country: '🇸🇰 Eslovaquia', metric: '8b+', points: 3700 },
-      { rank: 9, name: 'Markus Huber', country: '🇨🇭 Suiza', metric: '8b+', points: 3600 },
-      { rank: 10, name: 'Lucas García', country: '🇦🇷 Argentina', metric: '8b', points: 3500 },
-    ],
-  },
-  {
-    id: 'velocidad',
-    title: 'Ranking de velocidad',
-    headers: ['#', 'Escalador', 'País', 'Mejor Tiempo', 'Puntos'],
-    data: [
-      { rank: 1, name: 'Martina López', country: '🇪🇸 España', metric: '5.15 s', points: 1000 },
-      { rank: 2, name: 'David Novak', country: '🇨🇿 República Checa', metric: '5.34 s', points: 970 },
-      { rank: 3, name: 'Chen Yu', country: '🇨🇳 China', metric: '5.42 s', points: 950 },
-      { rank: 4, name: 'Stefan Müller', country: '🇦🇹 Austria', metric: '5.55 s', points: 920 },
-      { rank: 5, name: 'Chiara Bianchi', country: '🇮🇹 Italia', metric: '5.60 s', points: 910 },
-      { rank: 6, name: 'Jordi Sánchez', country: '🇪🇸 España', metric: '5.68 s', points: 895 },
-      { rank: 7, name: 'Katerina Novakova', country: '🇨🇿 República Checa', metric: '5.72 s', points: 880 },
-      { rank: 8, name: 'Yuan Fang', country: '🇨🇳 China', metric: '5.80 s', points: 860 },
-      { rank: 9, name: 'Markus Steiner', country: '🇨🇭 Suiza', metric: '5.85 s', points: 845 },
-      { rank: 10, name: 'Anna Müller', country: '🇩🇪 Alemania', metric: '5.90 s', points: 830 },
-    ],
-  },
-])
+const activeTab = ref<RankingId>('dificultad')
 </script>
 
 <style scoped>

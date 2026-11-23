@@ -1,15 +1,12 @@
 import { globalIgnores } from 'eslint/config'
-import {
-  configureVueProject,
-  defineConfigWithVueTs,
-  vueTsConfigs,
-} from '@vue/eslint-config-typescript'
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
 import skipFormatting from 'eslint-config-prettier/flat'
 
-// Existing components still use plain `<script setup>` (JS); allow it until they move to TS.
+// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
+// import { configureVueProject } from '@vue/eslint-config-typescript'
+// configureVueProject({ scriptLangs: ['ts', 'tsx'] })
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
-configureVueProject({ scriptLangs: ['ts', 'js'] })
 
 export default defineConfigWithVueTs(
   {
@@ -19,7 +16,7 @@ export default defineConfigWithVueTs(
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
 
-  ...pluginVue.configs['flat/essential'],
+  ...pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommended,
 
   skipFormatting,

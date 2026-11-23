@@ -14,7 +14,8 @@
         <div class="col-lg-4 col-md-4 mb-4 mb-lg-0 text-white justify-content-start">
           <h5 class="text-uppercase mb-4 fw-bold">Síguenos</h5>
           <div class="d-flex flex-column align-items-center align-items-lg-start justify-content-around gap-1">
-            <a v-for="social in socialLinks" :key="social.name" :href="social.url"
+            <a
+v-for="social in socialLinks" :key="social.name" :href="social.url"
               class="text-white d-flex align-items-center" target="_blank" rel="noopener">
               <i :class="[social.icon, 'fa-lg me-2']"></i> {{ social.name }}
             </a>
@@ -25,10 +26,11 @@
           <h5 class="text-uppercase mb-4 fw-bold">Suscríbete a nuestro boletín de Novedades</h5>
 
           <div class="form-outline form-white mb-4">
-            <input type="email" v-model="email" class="form-control" placeholder="correo@electronico.com" />
+            <input v-model="email" type="email" class="form-control" placeholder="correo@electronico.com" />
           </div>
 
-          <button ref="subscribeBtn" type="button" class="btn btn-primary text-dark col-12 btn-block mb-4"
+          <button
+ref="subscribeBtn" type="button" class="btn btn-primary text-dark col-12 btn-block mb-4"
             data-bs-toggle="popover" data-bs-title="Acción no disponible"
             data-bs-content="La suscripción no está disponible en este prototipo.">
             Suscríbete
@@ -38,9 +40,11 @@
         </div>
         <div class="d-flex justify-content-center">
             <svg width="200" height="150" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 110 L60 40 L100 90 L140 30 L180 110 L20 110" fill="none" stroke="#d1d1d1" stroke-width="3"
+              <path
+d="M20 110 L60 40 L100 90 L140 30 L180 110 L20 110" fill="none" stroke="#d1d1d1" stroke-width="3"
                 stroke-linecap="round" stroke-linejoin="round" />
-              <path class="mountain-path-animated" d="M20 110 L60 40 L100 90 L140 30 L180 110 L20 110" fill="none"
+              <path
+class="mountain-path-animated" d="M20 110 L60 40 L100 90 L140 30 L180 110 L20 110" fill="none"
                 stroke="#f8c52d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </div>
@@ -67,28 +71,16 @@
   </footer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { navLinks as menuItems, socialLinks } from '@/data/site'
 
 const email = ref('')
-const subscribeBtn = ref(null)
-
-const menuItems = [
-  { text: 'Novedades', href: '#novedades'},
-  { text: 'Ranking', href: '#ranking' },
-  { text: 'Registra tus marcas', href: '#registro'},
-  { text: 'Sobre Nosotros', href:'#about-us'}
-]
-
-const socialLinks = [
-  { name: 'Instagram', url: '', icon: 'fab fa-instagram' },
-  { name: 'Facebook', url: '', icon: 'fab fa-facebook-f' },
-  { name: 'Twitter', url: '', icon: 'fab fa-x-twitter' },
-]
+const subscribeBtn = ref<HTMLButtonElement | null>(null)
 
 onMounted(() => {
   // Inicialización del Popover de Bootstrap
-  if (window.bootstrap) {
+  if (window.bootstrap && subscribeBtn.value) {
     new window.bootstrap.Popover(subscribeBtn.value)
   }
 })

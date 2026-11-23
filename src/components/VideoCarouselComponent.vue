@@ -19,8 +19,8 @@
             playsinline
             disablePictureInPicture
           >
-            <source :src="videos[currentIndex].src" type="video/webm">
-            <source :src="videos[currentIndex].src" type="video/mp4">
+            <source :src="currentVideo?.src" type="video/webm">
+            <source :src="currentVideo?.src" type="video/mp4">
           </video>
         </div>
       </transition>
@@ -29,10 +29,10 @@
         <transition name="text-anim" mode="out-in">
           <div v-if="showText" :key="currentIndex" class="text-box border-start border-custom-yellow border-5 shadow-lg">
             <h1 class="display-3 fw-black text-custom-yellow text-uppercase mb-1">
-              {{ videos[currentIndex].phrase }}
+              {{ currentVideo?.phrase }}
             </h1>
             <p class="fs-4 text-white text-uppercase opacity-75 fw-light italic">
-              {{ videos[currentIndex].subtext }}
+              {{ currentVideo?.subtext }}
             </p>
           </div>
         </transition>
@@ -41,51 +41,36 @@
   </div>
 </template>
 
-<script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue';
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { heroVideos as videos } from '@/data/site'
 
-const videos = reactive([
-  { 
-    src: new URL('../assets/aspira.webm', import.meta.url).href, 
-    phrase: "La mirada en lo alto",
-    subtext: "Visualiza la línea donde otros solo ven vacío."
-  },
-  { 
-    src: new URL('../assets/construye.webm', import.meta.url).href, 
-    phrase: "El movimiento preciso",
-    subtext: "Tu progreso se esculpe paso a paso, agarre a agarre."
-  },
-  { 
-    src: new URL('../assets/logra.webm', import.meta.url).href, 
-    phrase: "La cumbre es el camino",
-    subtext: "El éxito es la armonía entre tu voluntad y la roca."
-  }
-]);
+const currentIndex = ref(0)
+const showText = ref(true)
+let cycleTimer: ReturnType<typeof setInterval> | undefined
 
-const currentIndex = ref(0);
-const showText = ref(true);
-let cycleTimer = null;
+const currentVideo = computed(() => videos[currentIndex.value])
 
 const runCycle = () => {
   // 1. Ocultar texto 1 segundo antes del cambio
   setTimeout(() => {
-    showText.value = false;
-  }, 5000);
+    showText.value = false
+  }, 5000)
 
   // 2. Cambiar índice a los 6 segundos
   setTimeout(() => {
-    currentIndex.value = (currentIndex.value + 1) % videos.length;
-    showText.value = true;
-  }, 6000);
-};
+    currentIndex.value = (currentIndex.value + 1) % videos.length
+    showText.value = true
+  }, 6000)
+}
 
 onMounted(() => {
-  cycleTimer = setInterval(runCycle, 6000);
-});
+  cycleTimer = setInterval(runCycle, 6000)
+})
 
 onUnmounted(() => {
-  clearInterval(cycleTimer);
-});
+  clearInterval(cycleTimer)
+})
 </script>
 
 <style scoped>
