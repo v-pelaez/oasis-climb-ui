@@ -43,8 +43,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
 // Importación de imagen
 const imgCabecera = new URL('../assets/rappel.jpg', import.meta.url).href
 
