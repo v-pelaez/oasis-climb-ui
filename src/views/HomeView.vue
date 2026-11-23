@@ -4,7 +4,7 @@ import SiteFooter from '@/components/layout/SiteFooter.vue'
 import ScrollTop from '@/components/ui/ScrollTop.vue'
 import RankingComponent from '@/components/RankingComponent.vue'
 import NewsComponent from '@/components/NewsComponent.vue'
-import MarkFormComponent from '@/components/MarkFormComponent.vue'
+import RouteFormSection from '@/components/sections/RouteFormSection.vue'
 import BackgroundComponent from '@/components/BackgroundComponent.vue'
 import AboutUsComponent from '@/components/AboutUsComponent.vue'
 import VideoCarouselComponent from '@/components/VideoCarouselComponent.vue'
@@ -17,7 +17,7 @@ import VideoCarouselComponent from '@/components/VideoCarouselComponent.vue'
     <BackgroundComponent />
     <NewsComponent />
     <RankingComponent />
-    <MarkFormComponent />
+    <RouteFormSection />
     <AboutUsComponent />
   </main>
   <SiteFooter />
