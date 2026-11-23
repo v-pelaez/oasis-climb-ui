@@ -21,10 +21,10 @@ export const heroVideos: HeroVideo[] = [
 ]
 
 export const about: AboutContent = {
-  image: { src: new URL('../assets/rappel.jpg', import.meta.url).href },
+  image: { src: new URL('../assets/rappel.webp', import.meta.url).href, width: 1920, height: 1280 },
   video: {
     src: new URL('../assets/aboutus.webm', import.meta.url).href,
     type: 'video/webm',
-    poster: new URL('../assets/videoposter.png', import.meta.url).href,
+    poster: new URL('../assets/videoposter.webp', import.meta.url).href,
   },
 }

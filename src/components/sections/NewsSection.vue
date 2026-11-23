@@ -31,8 +31,11 @@ const pages = [1, 2, 3]
                 <img
                   class="news-card-img"
                   :src="item.img"
+                  :width="item.width"
+                  :height="item.height"
                   :alt="t(`news.items.${item.id}.title`)"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div class="news-card-body">
                   <h3 class="news-card-title">{{ t(`news.items.${item.id}.title`) }}</h3>
