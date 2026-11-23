@@ -1,6 +1,7 @@
-import { afterEach, describe, expect, it } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { flushPromises, mount } from '@vue/test-utils'
 import SiteHeader from '../SiteHeader.vue'
+import NotAvailablePopover from '@/components/ui/NotAvailablePopover.vue'
 import { navLinks } from '@/data/site'
 
 afterEach(() => {
@@ -48,5 +49,38 @@ describe('SiteHeader', () => {
     expect(wrapper.get('.skip-link').attributes('href')).toBe('#main')
     expect(wrapper.get('.site-header-logo img').attributes('src')).toMatch(/OasisClimb\.svg/)
     wrapper.unmount()
+  })
+
+  it('has a real search in the bar and at the top of the touch menu, with no «not available» popover', () => {
+    const wrapper = mount(SiteHeader)
+    expect(wrapper.get('.site-header-tools .site-search').attributes('role')).toBe('search')
+    expect(wrapper.get('.site-menu > .site-search').classes()).toContain('is-menu')
+    expect(wrapper.findAll('.site-search input[role="combobox"]')).toHaveLength(2)
+    expect(wrapper.findComponent(NotAvailablePopover).exists()).toBe(false)
+    wrapper.unmount()
+  })
+
+  it('closes the touch menu when a search result is chosen', async () => {
+    vi.useFakeTimers()
+    Element.prototype.scrollIntoView = vi.fn()
+    const section = document.createElement('section')
+    section.id = 'about-us'
+    document.body.append(section)
+    const wrapper = mount(SiteHeader, { attachTo: document.body })
+    const button = wrapper.get('.site-menu-btn')
+    await button.trigger('click')
+
+    const input = wrapper.get('.site-menu .site-search-input')
+    await input.setValue('sobre')
+    vi.advanceTimersByTime(200)
+    await flushPromises()
+    await input.trigger('keydown', { key: 'Enter' })
+    await flushPromises()
+
+    expect(button.attributes('aria-expanded')).toBe('false')
+    expect(document.activeElement).toBe(section)
+    expect(section.classList.contains('is-search-hit')).toBe(true)
+    wrapper.unmount()
+    vi.useRealTimers()
   })
 })

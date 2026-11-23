@@ -23,9 +23,15 @@
     "register": "Log your routes",
     "about": "About us"
   },
+  "search": {
+    "listLabel": "Search results",
+    "groups": { "news": "News", "ranking": "Rankings", "section": "Sections" },
+    "empty": "No results for “{query}”.",
+    "tabs": { "dificultad": "Difficulty", "velocidad": "Speed" },
+    "rankingMeta": "{tab} · {metric}"
+  },
   "notAvailable": {
     "title": "Not available",
-    "search": "Search is not available in this prototype.",
     "pagination": "Pagination is not available in this prototype.",
     "subscription": "Subscribing is not available in this prototype.",
     "social": "The {name} profile is not available in this prototype."

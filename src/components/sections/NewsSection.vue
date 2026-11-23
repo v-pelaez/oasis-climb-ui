@@ -27,7 +27,7 @@ const pages = [1, 2, 3]
         <li v-for="item in news" :key="item.id">
           <TooltipRoot>
             <TooltipTrigger as-child>
-              <article class="news-card" tabindex="0">
+              <article :id="`news-${item.id}`" class="news-card" tabindex="0">
                 <img
                   class="news-card-img"
                   :src="item.img"

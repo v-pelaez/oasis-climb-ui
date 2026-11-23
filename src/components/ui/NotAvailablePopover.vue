@@ -8,7 +8,7 @@ import { useI18n } from 'vue-i18n'
  */
 withDefaults(
   defineProps<{
-    /** Translated sentence, e.g. `t('notAvailable.search')`. */
+    /** Translated sentence, e.g. `t('notAvailable.pagination')`. */
     message: string
     side?: 'top' | 'right' | 'bottom' | 'left'
   }>(),
