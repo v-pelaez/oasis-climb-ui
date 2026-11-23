@@ -36,8 +36,8 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 ### Setup
 
 ```bash
-git clone [https://github.com/v-pelaez/](https://github.com/v-pelaez/)<nuevo-nombre-del-repo>.git
-cd <nuevo-nombre-del-repo>
+git clone https://github.com/v-pelaez/oasis-climb-ui.git
+cd oasis-climb-ui
 npm install
 ```
 
