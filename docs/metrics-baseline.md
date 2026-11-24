@@ -55,6 +55,40 @@ peso total transferido 14 907 KiB.
 > Nota: una sola ejecución en local; Lighthouse varía unos puntos entre ejecuciones. Para comparar, repetir en la misma
 > máquina y, si hace falta, tomar la mediana de 3 ejecuciones.
 
+## Después (RFP-26)
+
+Mismo método que el de abajo, sobre el commit `0092911` (rama `ticket/final-metrics-case-study`, cambios locales ninguno), el 2026-11-24, misma máquina
+(Windows 11, Node 24.22.1) y mismo Lighthouse 12.8.2 con Edge headless contra `npm run preview`.
+
+| Métrica | Antes (`4dd4a19`) | Después (`0092911`) | Cambio |
+| --- | ---: | ---: | ---: |
+| JS gzip (`assets/index-*.js`) | 79.29 kB (raw 227.82 kB) | 116.07 kB (raw 342.66 kB) | +46 % |
+| CSS gzip (`assets/index-*.css`) | 69.71 kB (raw 524.54 kB) | 6.30 kB (raw 31.04 kB) | -91 % |
+| `index.html` gzip | 0.30 kB | 0.40 kB | |
+| `dist/` total | 56 208 631 B (53.6 MiB) | 14 327 808 B (13.7 MiB) | -75 % |
+| Medios en `dist/assets` (jpg, png, webp, webm, svg, otf, woff2) | 55 442 006 B | 13 939 654 B | -75 % |
+| — imágenes + vídeo (jpg, png, webp, webm) | 55 402 694 B | 13 865 746 B | -75 % |
+| Dependencias de producción | 9 | 5 | -4 |
+| Peso de `src/assets` | 75 176 418 B (71.7 MiB) | 13 897 500 B (13.3 MiB) | -82 % |
+| Tests | 0 | 117 | |
+
+Las 5 dependencias: `@fontsource-variable/outfit`, `reka-ui`, `vue`, `vue-i18n`, `vue-router`.
+
+### Lighthouse móvil (después)
+
+| Categoría | Antes | Después |
+| --- | ---: | ---: |
+| Performance | 92 | 86 |
+| Accessibility | 81 | 100 |
+| Best Practices | 100 | 100 |
+| SEO | 82 | 100 |
+
+Métricas de Performance: FCP 2.3 s (antes 2.3 s) · LCP 3.5 s (2.8 s) · TBT 130 ms (90 ms) · CLS 0 (0) · Speed Index 3.0 s (2.9 s) ·
+peso total transferido 4 895 KiB (14 907 KiB).
+
+Performance se midió en 3 ejecuciones: 86, 86 y 83 (mediana 86; LCP 3.5-3.6 s, TBT 130-190 ms). La línea base fue una sola ejecución.
+Performance baja porque el JS creció (vue-i18n y Reka UI) y el LCP (el vídeo de portada) llega algo más tarde; las otras tres categorías suben o se mantienen.
+
 ## Medios (RFP-23)
 
 Peso (bytes) de cada fichero de `src/assets` antes y después de optimizar. Los originales ya no están en el repo.
