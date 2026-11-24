@@ -9,13 +9,16 @@ Live Demo: **[v-pelaez.github.io/oasis-climb-ui](https://v-pelaez.github.io/oasi
 
 ## Overview
 
-Originally developed as a static Bootstrap interface, this project was migrated to a modular **Vue 3 + TypeScript** SPA to apply component-based architecture, client-side routing, and automated code quality tooling while preserving a cohesive visual identity.
+A modular **Vue 3 + TypeScript** SPA with component-based architecture, client-side routing, bilingual content (Spanish and English), tests and CI, keeping a cohesive visual identity.
+
+The story behind it (problem, decisions, measured before and after) is in the **[case study](./docs/case-study.md)**; the numbers and the method to repeat them are in [`docs/metrics-baseline.md`](./docs/metrics-baseline.md).
 
 ## Key Features
 
 - **SPA architecture & routing:** Multi-view client-side navigation structured with Vue Router 4.
 - **Rich media integration:** Hero of chained videos (each plays to its end, then the next fades in; progress bar from the video's own time, pause button, only the active and next video are loaded) and an embedded video section.
 - **Interactive UI & forms:** Client-side form validation, tooltips, tabs and dialogs built on accessible Reka UI primitives.
+- **Search:** client-side search over news, rankings and sections in the active language (accent and case insensitive); picking a result opens its tab, scrolls to it and highlights it.
 - **Data presentation:** Ranking tables with client-side pagination backed by static mock datasets.
 - **Custom visual effects:** Canvas animated background (`devicePixelRatio`-aware, static with `prefers-reduced-motion`) and animated SVG elements combined with custom Sass styling.
 
@@ -25,6 +28,7 @@ Originally developed as a static Bootstrap interface, this project was migrated 
 - **Language & Type Checking:** TypeScript (`~5.9.3`) · `vue-tsc`
 - **UI & Styling:** Sass design tokens and own layout components · Reka UI (accessible primitives) · self-hosted Outfit and LemonMilk fonts
 - **i18n:** vue-i18n 11 (Composition API), Spanish and English
+- **Media:** WebM (VP9) videos and WebP images, re-encoded with the scripts in `scripts/`
 - **Code Quality:** ESLint 9 · Prettier 3 · Vitest (`@vue/test-utils`, jsdom) · GitHub Actions CI
 
 ## Internationalisation
