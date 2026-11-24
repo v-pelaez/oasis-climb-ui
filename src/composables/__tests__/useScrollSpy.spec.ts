@@ -14,9 +14,9 @@ class MockIntersectionObserver {
     MockIntersectionObserver.instances.push(this)
   }
 
-  trigger(target: Element, isIntersecting = true) {
+  trigger(target: Element, isIntersecting = true, top = 0) {
     this.callback(
-      [{ target, isIntersecting } as IntersectionObserverEntry],
+      [{ target, isIntersecting, boundingClientRect: { top } } as IntersectionObserverEntry],
       this as unknown as IntersectionObserver,
     )
   }
@@ -47,7 +47,7 @@ describe('useScrollSpy', () => {
     const wrapper = mount(Spy)
     const observer = MockIntersectionObserver.instances[0]!
     expect(observer.observed.map((el) => el.id)).toEqual(ids)
-    expect(wrapper.text()).toBe('novedades')
+    expect(wrapper.text()).toBe('')
 
     observer.trigger(document.getElementById('ranking')!)
     await nextTick()
@@ -56,6 +56,20 @@ describe('useScrollSpy', () => {
     observer.trigger(document.getElementById('novedades')!, false)
     await nextTick()
     expect(wrapper.text()).toBe('ranking')
+    wrapper.unmount()
+  })
+
+  it('clears the active id when scrolling back above the first section', async () => {
+    const wrapper = mount(Spy)
+    const observer = MockIntersectionObserver.instances[0]!
+    observer.trigger(document.getElementById('novedades')!)
+    await nextTick()
+    expect(wrapper.text()).toBe('novedades')
+
+    // Leaves the band with its top below it: the page is back on the hero.
+    observer.trigger(document.getElementById('novedades')!, false, 400)
+    await nextTick()
+    expect(wrapper.text()).toBe('')
     wrapper.unmount()
   })
 

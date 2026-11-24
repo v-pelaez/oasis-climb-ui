@@ -19,7 +19,7 @@ The story behind it (problem, decisions, measured before and after) is in the **
 - **Rich media integration:** Hero of chained videos (each plays to its end, then the next fades in; progress bar from the video's own time, pause button, only the active and next video are loaded) and an embedded video section.
 - **Interactive UI & forms:** Client-side form validation, tooltips, tabs and dialogs built on accessible Reka UI primitives.
 - **Search:** client-side search over news, rankings and sections in the active language (accent and case insensitive); picking a result opens its tab, scrolls to it and highlights it.
-- **Data presentation:** Ranking tables with client-side pagination backed by static mock datasets.
+- **Data presentation:** Ranking tables (difficulty and speed tabs) backed by static mock datasets.
 - **Custom visual effects:** Canvas animated background (`devicePixelRatio`-aware, static with `prefers-reduced-motion`) and animated SVG elements combined with custom Sass styling.
 
 ## Tech Stack
@@ -44,7 +44,7 @@ The site is in Spanish and English (`vue-i18n`, `legacy: false`, set up in `src/
 
 ### Prerequisites
 
-- Node.js `^22.12.0` or `>=24` (Node LTS recommended; Vitest needs it)
+- Node.js `^22.12.0` or `>=24` (Node LTS recommended; Vitest needs it). `package.json` `engines` says the same.
 - npm
 
 ### Setup

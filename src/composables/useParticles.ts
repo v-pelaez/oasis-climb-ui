@@ -99,12 +99,16 @@ export function useParticles(
     const el = canvas.value
     if (!el || !ctx) return
     const dpr = window.devicePixelRatio || 1
+    const widthChanged = bounds.width !== window.innerWidth
     bounds = { width: window.innerWidth, height: window.innerHeight }
     el.width = Math.round(bounds.width * dpr)
     el.height = Math.round(bounds.height * dpr)
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     color = getComputedStyle(el).color
-    particles = Array.from({ length: count }, () => createParticle(bounds, options))
+    // A height-only change (mobile browser bar showing or hiding while scrolling) keeps the
+    // particles: they wrap around the new bounds instead of jumping to new positions.
+    if (widthChanged || particles.length === 0)
+      particles = Array.from({ length: count }, () => createParticle(bounds, options))
     if (isStatic()) draw(0)
   }
 
