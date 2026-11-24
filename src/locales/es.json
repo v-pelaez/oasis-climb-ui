@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "title": "Oasis Climb · Escalada y montaña",
+    "description": "Oasis Climb: escalada, entrenamiento y aventuras de montaña. Descubre nuestras actividades y únete a la comunidad."
+  },
+  "language": {
+    "name": "Español",
+    "code": "ES",
+    "switchTo": "Cambiar el idioma a español"
+  },
+  "header": {
+    "skipLink": "Saltar al contenido",
+    "home": "Oasis Climb, inicio",
+    "navLabel": "Principal",
+    "searchPlaceholder": "Buscar…",
+    "searchLabel": "Buscar",
+    "menuOpen": "Abrir menú",
+    "menuClose": "Cerrar menú"
+  },
+  "nav": {
+    "news": "Novedades",
+    "ranking": "Ranking",
+    "register": "Registra tus marcas",
+    "about": "Sobre nosotros"
+  },
+  "search": {
+    "listLabel": "Resultados de búsqueda",
+    "groups": { "news": "Novedades", "ranking": "Ranking", "section": "Secciones" },
+    "empty": "Sin resultados para «{query}».",
+    "tabs": { "dificultad": "Dificultad", "velocidad": "Velocidad" },
+    "rankingMeta": "{tab} · {metric}"
+  },
+  "notAvailable": {
+    "title": "Acción no disponible",
+    "pagination": "La paginación no está disponible en este prototipo.",
+    "subscription": "La suscripción no está disponible en este prototipo.",
+    "social": "El perfil de {name} no está disponible en este prototipo."
+  },
+  "hero": {
+    "tagline": "Aspira, construye, logra.",
+    "label": "Presentación",
+    "pause": "Pausar vídeos de portada",
+    "slides": {
+      "aspire": {
+        "phrase": "La mirada en lo alto",
+        "subtext": "Visualiza la línea donde otros solo ven vacío."
+      },
+      "build": {
+        "phrase": "El movimiento preciso",
+        "subtext": "Tu progreso se esculpe paso a paso, agarre a agarre."
+      },
+      "achieve": {
+        "phrase": "La cumbre es el camino",
+        "subtext": "El éxito es la armonía entre tu voluntad y la roca."
+      }
+    }
+  },
+  "news": {
+    "title": "Novedades",
+    "published": "Publicado {date}",
+    "tooltip": "Esto es una noticia de ejemplo",
+    "paginationLabel": "Paginación de noticias",
+    "previousPage": "Página anterior",
+    "nextPage": "Página siguiente",
+    "items": {
+      "trad": {
+        "title": "Tradicional en roca: aventuras en la naturaleza",
+        "text": "La escalada tradicional apuesta por la equipación manual y la lectura de la roca, brindando libertad y responsabilidad en cada vía. [...]"
+      },
+      "urban": {
+        "title": "Escalada deportiva urbana: superando límites",
+        "text": "Practicada en entornos urbanos, la escalada deportiva combina técnica y destreza, demostrando que cualquier pared puede ser un reto vertical. [...]"
+      },
+      "snow": {
+        "title": "Rutas en nieve: exploración y resistencia",
+        "text": "Las travesías en nieve invitan a descubrir la montaña de otra forma, combinando orientación, técnica y preparación física. [...]"
+      },
+      "summit": {
+        "title": "Cumbre compartida: logro y compañerismo",
+        "text": "Alcanzar la cima simboliza el esfuerzo colectivo, la superación personal y el disfrute del paisaje en lo más alto. [...]"
+      },
+      "alpine": {
+        "title": "Montañismo alpino: retos en la altura",
+        "text": "Superar grandes cumbres implica esfuerzo físico y mental, además de trabajo en equipo y buena planificación para alcanzar la cima. [...]"
+      }
+    }
+  },
+  "ranking": {
+    "title": "Rankings",
+    "tabsLabel": "Rankings",
+    "tabs": {
+      "dificultad": "Ranking de dificultad",
+      "velocidad": "Ranking de velocidad"
+    },
+    "headers": {
+      "rank": "#",
+      "climber": "Escalador",
+      "country": "País",
+      "points": "Puntos"
+    },
+    "metric": {
+      "dificultad": "Dificultad Máxima",
+      "velocidad": "Mejor Tiempo"
+    }
+  },
+  "routeForm": {
+    "tagline": "Haz que tu huella perdure. Registra tu marca, deja tu legado en la roca.",
+    "headerImageAlt": "Montaña",
+    "title": "Registra tus marcas",
+    "formTitle": "Datos Técnicos de la Ruta",
+    "submit": "Registrar Marca",
+    "dialog": {
+      "title": "Envío Completado",
+      "body": "Tu marca ha pasado a revisión por el comité de guías.",
+      "note": "La montaña es de todos, la responsabilidad es tuya.",
+      "close": "Entendido"
+    },
+    "fields": {
+      "routeName": {
+        "label": "Nombre de la vía o ruta",
+        "placeholder": "Ej: La arista de los vientos"
+      },
+      "location": {
+        "label": "Macizo / Zona / Sector",
+        "placeholder": "Ej: Picos de Europa - Naranjo de Bulnes"
+      },
+      "markerType": { "label": "Disciplina", "placeholder": "Tipo..." },
+      "difficulty": { "label": "Dificultad", "placeholder": "Grado..." },
+      "gpsLink": {
+        "label": "Coordenadas o Enlace Track (GPX)",
+        "placeholder": "https://wikiloc.com/..."
+      },
+      "length": { "label": "Distancia / Largos", "placeholder": "Ej: 12km o 4 largos" },
+      "elevation": { "label": "Desnivel (+m)", "placeholder": "Ej: 850" },
+      "duration": { "label": "Tiempo estimado (h)", "placeholder": "Ej: 4.5" },
+      "season": { "label": "Mejor Época", "placeholder": "Selecciona..." },
+      "equipment": {
+        "label": "Material obligatorio",
+        "placeholder": "Ej: Cuerda 60m, Friends, Casco"
+      },
+      "description": {
+        "label": "Descripción del itinerario y marcas",
+        "placeholder": "Describe los hitos, marcas de pintura o químicos..."
+      },
+      "terms": {
+        "label": "Confirmo que la información técnica es veraz y apta para la seguridad de terceros."
+      }
+    },
+    "options": {
+      "discipline": {
+        "senderismo": "Senderismo",
+        "ferrata": "Vía Ferrata",
+        "escalada": "Escalada",
+        "alpinismo": "Alpinismo"
+      },
+      "difficulty": {
+        "baja": "Baja (K1 / II)",
+        "media": "Media (K3 / V)",
+        "alta": "Alta (K5 / 6b+)",
+        "extrema": "Extrema (K6 / 7+)"
+      },
+      "season": {
+        "primavera": "Primavera - Otoño",
+        "verano": "Verano (Alta Montaña)",
+        "invierno": "Invierno (Invernal)",
+        "todo_el_anyo": "Todo el año"
+      }
+    },
+    "errors": {
+      "required": {
+        "routeName": "El nombre es obligatorio.",
+        "location": "Indica la zona geográfica.",
+        "markerType": "Selecciona una disciplina.",
+        "difficulty": "Selecciona la dificultad.",
+        "length": "Indica la distancia o el número de largos.",
+        "elevation": "Indica el desnivel.",
+        "duration": "Indica el tiempo estimado.",
+        "season": "Selecciona la mejor época.",
+        "equipment": "Indica el material obligatorio.",
+        "description": "Describe el itinerario.",
+        "terms": "Debes confirmar que la información es veraz."
+      },
+      "notNegativeNumber": "Introduce un número igual o mayor que 0.",
+      "invalidUrl": "Introduce una URL válida (https://...)."
+    }
+  },
+  "about": {
+    "tagline": "Conoce la pasión que nos mueve.",
+    "imageAlt": "Rápel en una pared de montaña",
+    "title": "Sobre nosotros",
+    "heading": "Nuestra historia y misión",
+    "lead": "En un mundo donde la huella humana a menudo desdibuja la naturaleza, nace Oasis Climb con una misión clara: preservar y compartir el legado de la montaña.",
+    "body": "Creemos que cada ruta, cada cima, cada vía ferrata, es una historia grabada en el paisaje, un desafío superado y un tesoro a proteger. Nuestro objetivo es crear una comunidad donde el conocimiento técnico y la seguridad sean primordiales.",
+    "quote": "«La montaña es un eco de la eternidad.»",
+    "videoLabel": "Vídeo de presentación de Oasis Climb",
+    "videoFallback": "Tu navegador no puede reproducir este vídeo."
+  },
+  "footer": {
+    "follow": "Síguenos",
+    "newsletterTitle": "Suscríbete a nuestro boletín de Novedades",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "correo{'@'}electronico.com",
+    "subscribe": "Suscríbete",
+    "legalTitle": "Información legal",
+    "legalText": "Este trabajo ha sido elaborado por V. Peláez con fines académicos. La autoría de todo el contenido corresponde exclusivamente a V. Peláez. El trabajo no tiene carácter comercial ni busca obtener beneficio económico alguno. Las imágenes utilizadas provienen de fuentes como Flaticon y Freepik, y se emplean respetando sus licencias de uso gratuito y atribución. Queda prohibida la reproducción o distribución del contenido para fines comerciales sin el consentimiento explícito del autor. Se agradece la adecuada atribución de las imágenes conforme a las condiciones de las plataformas."
+  },
+  "scrollTop": "Volver arriba"
+}

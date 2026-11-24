@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "title": "Oasis Climb · Climbing and mountains",
+    "description": "Oasis Climb: climbing, training and mountain adventures. Discover our activities and join the community."
+  },
+  "language": {
+    "name": "English",
+    "code": "EN",
+    "switchTo": "Change language to English"
+  },
+  "header": {
+    "skipLink": "Skip to content",
+    "home": "Oasis Climb, home",
+    "navLabel": "Main",
+    "searchPlaceholder": "Search…",
+    "searchLabel": "Search",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
+  },
+  "nav": {
+    "news": "News",
+    "ranking": "Rankings",
+    "register": "Log your routes",
+    "about": "About us"
+  },
+  "search": {
+    "listLabel": "Search results",
+    "groups": { "news": "News", "ranking": "Rankings", "section": "Sections" },
+    "empty": "No results for “{query}”.",
+    "tabs": { "dificultad": "Difficulty", "velocidad": "Speed" },
+    "rankingMeta": "{tab} · {metric}"
+  },
+  "notAvailable": {
+    "title": "Not available",
+    "pagination": "Pagination is not available in this prototype.",
+    "subscription": "Subscribing is not available in this prototype.",
+    "social": "The {name} profile is not available in this prototype."
+  },
+  "hero": {
+    "tagline": "Aspire, build, achieve.",
+    "label": "Introduction",
+    "pause": "Pause cover videos",
+    "slides": {
+      "aspire": {
+        "phrase": "Eyes on the heights",
+        "subtext": "See the line where others only see empty space."
+      },
+      "build": {
+        "phrase": "The precise move",
+        "subtext": "Your progress is carved step by step, hold by hold."
+      },
+      "achieve": {
+        "phrase": "The summit is the path",
+        "subtext": "Success is the harmony between your will and the rock."
+      }
+    }
+  },
+  "news": {
+    "title": "News",
+    "published": "Published {date}",
+    "tooltip": "This is a sample news item",
+    "paginationLabel": "News pagination",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "items": {
+      "trad": {
+        "title": "Trad climbing: adventures in the wild",
+        "text": "Traditional climbing relies on placing your own gear and reading the rock, bringing freedom and responsibility to every route. [...]"
+      },
+      "urban": {
+        "title": "Urban sport climbing: pushing limits",
+        "text": "Practised in urban settings, sport climbing combines technique and skill, proving that any wall can be a vertical challenge. [...]"
+      },
+      "snow": {
+        "title": "Snow routes: exploration and endurance",
+        "text": "Snow crossings invite you to discover the mountain in a different way, combining navigation, technique and physical fitness. [...]"
+      },
+      "summit": {
+        "title": "A shared summit: achievement and companionship",
+        "text": "Reaching the top stands for collective effort, personal growth and enjoying the landscape from the highest point. [...]"
+      },
+      "alpine": {
+        "title": "Alpine mountaineering: challenges at altitude",
+        "text": "Conquering great peaks takes physical and mental effort, as well as teamwork and good planning to reach the summit. [...]"
+      }
+    }
+  },
+  "ranking": {
+    "title": "Rankings",
+    "tabsLabel": "Rankings",
+    "tabs": {
+      "dificultad": "Difficulty ranking",
+      "velocidad": "Speed ranking"
+    },
+    "headers": {
+      "rank": "#",
+      "climber": "Climber",
+      "country": "Country",
+      "points": "Points"
+    },
+    "metric": {
+      "dificultad": "Hardest grade",
+      "velocidad": "Best time"
+    }
+  },
+  "routeForm": {
+    "tagline": "Make your mark last. Log your route and leave your legacy on the rock.",
+    "headerImageAlt": "Mountain",
+    "title": "Log your routes",
+    "formTitle": "Route technical details",
+    "submit": "Log route",
+    "dialog": {
+      "title": "Submission complete",
+      "body": "Your route is now being reviewed by the guides' committee.",
+      "note": "The mountain belongs to everyone; the responsibility is yours.",
+      "close": "Got it"
+    },
+    "fields": {
+      "routeName": { "label": "Route or climb name", "placeholder": "E.g. The windy ridge" },
+      "location": {
+        "label": "Massif / Area / Sector",
+        "placeholder": "E.g. Picos de Europa - Naranjo de Bulnes"
+      },
+      "markerType": { "label": "Discipline", "placeholder": "Type..." },
+      "difficulty": { "label": "Difficulty", "placeholder": "Grade..." },
+      "gpsLink": {
+        "label": "Coordinates or track link (GPX)",
+        "placeholder": "https://wikiloc.com/..."
+      },
+      "length": { "label": "Distance / Pitches", "placeholder": "E.g. 12km or 4 pitches" },
+      "elevation": { "label": "Elevation gain (+m)", "placeholder": "E.g. 850" },
+      "duration": { "label": "Estimated time (h)", "placeholder": "E.g. 4.5" },
+      "season": { "label": "Best season", "placeholder": "Select..." },
+      "equipment": { "label": "Required gear", "placeholder": "E.g. 60m rope, cams, helmet" },
+      "description": {
+        "label": "Route description and markings",
+        "placeholder": "Describe the landmarks, paint marks or bolts..."
+      },
+      "terms": {
+        "label": "I confirm the technical information is accurate and safe for others to rely on."
+      }
+    },
+    "options": {
+      "discipline": {
+        "senderismo": "Hiking",
+        "ferrata": "Via ferrata",
+        "escalada": "Climbing",
+        "alpinismo": "Mountaineering"
+      },
+      "difficulty": {
+        "baja": "Low (K1 / II)",
+        "media": "Medium (K3 / V)",
+        "alta": "High (K5 / 6b+)",
+        "extrema": "Extreme (K6 / 7+)"
+      },
+      "season": {
+        "primavera": "Spring - Autumn",
+        "verano": "Summer (high mountain)",
+        "invierno": "Winter (winter conditions)",
+        "todo_el_anyo": "All year round"
+      }
+    },
+    "errors": {
+      "required": {
+        "routeName": "The name is required.",
+        "location": "Enter the area.",
+        "markerType": "Select a discipline.",
+        "difficulty": "Select the difficulty.",
+        "length": "Enter the distance or the number of pitches.",
+        "elevation": "Enter the elevation gain.",
+        "duration": "Enter the estimated time.",
+        "season": "Select the best season.",
+        "equipment": "Enter the required gear.",
+        "description": "Describe the route.",
+        "terms": "You must confirm the information is accurate."
+      },
+      "notNegativeNumber": "Enter a number equal to or greater than 0.",
+      "invalidUrl": "Enter a valid URL (https://...)."
+    }
+  },
+  "about": {
+    "tagline": "Discover the passion that drives us.",
+    "imageAlt": "Abseiling down a mountain wall",
+    "title": "About us",
+    "heading": "Our story and mission",
+    "lead": "In a world where the human footprint often blurs nature, Oasis Climb was born with a clear mission: to preserve and share the legacy of the mountains.",
+    "body": "We believe every route, every summit, every via ferrata is a story etched into the landscape, a challenge overcome and a treasure to protect. Our goal is to build a community where technical knowledge and safety come first.",
+    "quote": "“The mountain is an echo of eternity.”",
+    "videoLabel": "Oasis Climb introduction video",
+    "videoFallback": "Your browser cannot play this video."
+  },
+  "footer": {
+    "follow": "Follow us",
+    "newsletterTitle": "Subscribe to our News newsletter",
+    "emailLabel": "Email",
+    "emailPlaceholder": "email{'@'}example.com",
+    "subscribe": "Subscribe",
+    "legalTitle": "Legal information",
+    "legalText": "This work was produced by V. Peláez for academic purposes. All content is authored exclusively by V. Peláez. The work is non-commercial and does not seek any financial gain. The images used come from sources such as Flaticon and Freepik and are used in accordance with their free-use and attribution licences. Reproducing or distributing the content for commercial purposes without the author's explicit consent is prohibited. Proper attribution of the images, under the platforms' terms, is appreciated."
+  },
+  "scrollTop": "Back to top"
+}
