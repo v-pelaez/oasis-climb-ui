@@ -1,26 +1,38 @@
 <script setup lang="ts">
-import HeaderComponent from '../components/HeaderComponent.vue'
-import FooterComponent from '../components/FooterComponent.vue'
-import RankingComponent from '../components/RankingComponent.vue'
-import NewsComponent from '../components/NewsComponent.vue'
-import MarkFormComponent from '@/components/MarkFormComponent.vue'
-import BackgroundComponent from '@/components/BackgroundComponent.vue'
-import ScrollTopComponent from '@/components/ScrollTopComponent.vue'
-import AboutUsComponent from '@/components/AboutUsComponent.vue'
-import VideoCarouselComponent from '@/components/VideoCarouselComponent.vue'
+import { provide, ref } from 'vue'
+import SiteHeader from '@/components/layout/SiteHeader.vue'
+import SiteFooter from '@/components/layout/SiteFooter.vue'
+import ScrollTop from '@/components/ui/ScrollTop.vue'
+import RankingSection from '@/components/sections/RankingSection.vue'
+import NewsSection from '@/components/sections/NewsSection.vue'
+import RouteFormSection from '@/components/sections/RouteFormSection.vue'
+import ParticlesBackground from '@/components/layout/ParticlesBackground.vue'
+import AboutSection from '@/components/sections/AboutSection.vue'
+import HeroCarousel from '@/components/sections/HeroCarousel.vue'
+import { RANKING_TAB_KEY } from '@/composables/useSearch'
+import type { RankingId } from '@/types/ranking'
 
+/** Active ranking tab, shared with the header search so a result can open its tab. */
+const rankingTab = ref<RankingId>('dificultad')
+provide(RANKING_TAB_KEY, rankingTab)
 </script>
 
 <template>
-  <main>
-    <HeaderComponent />
-    <VideoCarouselComponent/>
-    <ScrollTopComponent />
-    <BackgroundComponent />
-    <NewsComponent />
-    <RankingComponent />
-    <MarkFormComponent />
-    <AboutUsComponent />
-    <FooterComponent />
+  <SiteHeader />
+  <main id="main" tabindex="-1">
+    <HeroCarousel />
+    <ParticlesBackground />
+    <NewsSection />
+    <RankingSection v-model="rankingTab" />
+    <RouteFormSection />
+    <AboutSection />
   </main>
+  <SiteFooter />
+  <ScrollTop />
 </template>
+
+<style scoped>
+main:focus {
+  outline: none;
+}
+</style>
