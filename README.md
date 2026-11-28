@@ -67,3 +67,7 @@ npm ci
 | `npm run lint:check` | Lint without fixing; fails on any warning (used in CI) |
 | `npm run test` | Run the Vitest suite once (`npx vitest run <path>` for a subset) |
 | `npm run format` | Format source files in `src/` with Prettier |
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
